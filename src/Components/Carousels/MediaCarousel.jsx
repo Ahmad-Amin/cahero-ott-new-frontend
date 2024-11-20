@@ -6,63 +6,77 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axiosInstance from "../../lib/axiosInstance";
+import LoadingWrapper from "../../ui/LoadingWrapper";
 
-const MediaCarousel = ({ heading, height, cardheight, axiosURL, cardsSpace }) => {
+const MediaCarousel = ({
+  heading,
+  height,
+  cardheight,
+  axiosURL,
+  cardsSpace,
+}) => {
   const [mediaData, setMediaData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const URL = axiosURL;
 
   useEffect(() => {
     const fetchMediaData = async () => {
       try {
+        setLoading(true);
         const response = await axiosInstance.get(axiosURL);
+        console.log(response.data);
         setMediaData(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching media data:", error);
         setLoading(false);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchMediaData();
-  }, [axiosURL]); 
-
-  if (loading) {
-    return <div className="text-white text-center">Loading...</div>;
-  }
+  }, [axiosURL]);
 
   return (
     <div className="p-10">
-      <h1 className="text-white font-bold text-xl mb-2">{heading}</h1>
+      <LoadingWrapper loading={loading}>
+        <h1 className="text-white font-bold text-xl mb-2">{heading}</h1>
 
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={cardsSpace}
-        slidesPerView={5}
-        navigation
-        pagination={{ clickable: true }} 
-        className="relative"
-        autoplay={{
-          delay: 3000, 
-          disableOnInteraction: false,
-        }}
-      >
-        {mediaData.map((media) => (
-          <SwiperSlide key={media.id}>
-            <MediaCard
-              title={media.title}
-              thumbnail={media.coverImageUrl}
-              recentlyAdded={media.recentlyAdded}
-              duration={media.duration}
-              ageRating={media.ageRating}
-              tags={media.tags}
-              type={media.type}
-              height={height}
-              cardheight={cardheight}
-              author={media.author}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={cardsSpace}
+          slidesPerView={5}
+          navigation
+          pagination={{ clickable: true }}
+          className="relative overflow-visible"
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+        >
+          {mediaData.map((media) => {
+            return (
+              <SwiperSlide key={media.id} className="relative overflow-visible">
+                <MediaCard
+                  title={media.title}
+                  thumbnail={media.coverImageUrl}
+                  recentlyAdded={media.recentlyAdded}
+                  duration={media.duration}
+                  ageRating={media.ageRating}
+                  tags={media.tags}
+                  type={media.type}
+                  height={height}
+                  cardheight={cardheight}
+                  author={media.author}
+                  axiosUrl={URL}
+                  id={media.id}
+                />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </LoadingWrapper>
     </div>
   );
 };

@@ -115,89 +115,88 @@ function Navbar() {
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Left Section */}
         <div className="flex items-center space-x-8">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <img
-              src={`${process.env.PUBLIC_URL}/Images/Cahero Legacy.png`}
-              alt="Cahero Legacy"
-              className="h-16"
-            />
-          </div>
+  {/* Logo */}
+  <div className="flex items-center space-x-2">
+    <img
+      src={`${process.env.PUBLIC_URL}/Images/Cahero Legacy.png`}
+      alt="Cahero Legacy"
+      className="h-16"
+    />
+  </div>
 
-          {/* Navigation Links */}
-          <ul className="flex space-x-6">
-            <li>
-              <NavLink
-                to="/"
-                className={`font-medium ${
-                  location.pathname === "/" ? "text-white" : "text-gray-400"
-                } hover:text-white`}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/popular"
-                className={`font-medium ${
-                  location.pathname === "/popular"
-                    ? "text-white"
-                    : "text-gray-400"
-                } hover:text-white`}
-              >
-                Popular
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/webinars"
-                className={`font-medium ${
-                  location.pathname === "/webinars"
-                    ? "text-white"
-                    : "text-gray-400"
-                } hover:text-white`}
-              >
-                Webinars
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/books"
-                className={`font-medium ${
-                  location.pathname === "/books"
-                    ? "text-white"
-                    : "text-gray-400"
-                } hover:text-white`}
-              >
-                Books
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/documentaries"
-                className={`font-medium ${
-                  location.pathname === "/documentaries"
-                    ? "text-white"
-                    : "text-gray-400"
-                } hover:text-white`}
-              >
-                Documentaries
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/community"
-                className={`font-medium ${
-                  location.pathname === "/community"
-                    ? "text-white"
-                    : "text-gray-400"
-                } hover:text-white`}
-              >
-                Community
-              </NavLink>
-            </li>
-          </ul>
-        </div>
+  {/* Navigation Links */}
+  <ul className="flex space-x-6">
+    <li>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `font-medium ${isActive ? "text-white" : "text-gray-400"} hover:text-white`
+        }
+      >
+        Home
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/popular"
+        className={({ isActive }) =>
+          `font-medium ${isActive ? "text-white" : "text-gray-400"} hover:text-white`
+        }
+      >
+        Popular
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/webinars"
+        className={() =>
+          `font-medium ${
+            location.pathname.includes("/webinars") ? "text-white" : "text-gray-400"
+          } hover:text-white`
+        }
+      >
+        Webinars
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/books"
+        className={() =>
+          `font-medium ${
+            location.pathname.includes("/books") ? "text-white" : "text-gray-400"
+          } hover:text-white`
+        }
+      >
+        Books
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/documentaries"
+        className={() =>
+          `font-medium ${
+            location.pathname.includes("/documentaries") ? "text-white" : "text-gray-400"
+          } hover:text-white`
+        }
+      >
+        Documentaries
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/community"
+        className={() =>
+          `font-medium ${
+            location.pathname.includes("/community") ? "text-white" : "text-gray-400"
+          } hover:text-white`
+        }
+      >
+        Community
+      </NavLink>
+    </li>
+  </ul>
+</div>
+
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">

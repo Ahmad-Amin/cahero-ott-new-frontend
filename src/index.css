@@ -14,3 +14,6 @@ body {
   -webkit-text-stroke: 2px white; /* Set the outline width and color */
   color: transparent; /* Make the text color transparent so the outline is visible */
 }
+.swiper {
+  overflow:visible !important
+}

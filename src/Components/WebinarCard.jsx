@@ -44,8 +44,8 @@ const WebinarCard = ({
       className="relative bg-black text-white rounded-lg overflow-hidden shadow-lg cursor-pointer transition-all"
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
-      initial={{ height: "500px" }}
-      animate={{ height: isHovered ? resolvedHeight : cardHeight }}
+      initial={{ height: cardHeight }}
+      animate={{ height: cardHeight }}
       transition={{ duration: 0.3 }}
     >
       <motion.div
