@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '@fontsource/poppins'; /* Import Poppins from the package */
+
+
+
+body {
+  @apply bg-[#000000];
+  @apply font-sans;
+}
+
+.text-outline {
+  -webkit-text-stroke: 2px white; /* Set the outline width and color */
+  color: transparent; /* Make the text color transparent so the outline is visible */
+}
