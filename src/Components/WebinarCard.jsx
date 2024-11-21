@@ -84,7 +84,7 @@ const WebinarCard = ({
               <ExpandMoreIcon />
             </button>
           </div>
-          <h3 className="text-xl font-thin mb-2 opacity-50">{data.split("T")[0]}</h3>
+          <h3 className="text-xl font-thin mb-2 opacity-50">{data.split("T")[0] || null}</h3>
           <h3 className="text-sm font-medium mb-2">{title}</h3>
           <div>
           {/* <p className="text-sm text-gray-400 mt-1">

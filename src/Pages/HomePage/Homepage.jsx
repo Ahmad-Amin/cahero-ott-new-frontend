@@ -41,7 +41,7 @@ const Homepage = () => {
       />
       <NumberCarousel
         heading={"Recommended Books"}
-        axiosURL={"/webinars?type=past"}
+        axiosURL={"/books"}
         height="350px"
         cardheight="350px"
         cardsSpace={90}

@@ -4,7 +4,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import MediaModal from "../Components/Modals/MediaModal";
 
 const MediaCard = ({
   title,
@@ -20,11 +21,13 @@ const MediaCard = ({
   axiosUrl,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const hoverTimeoutRef = useRef(null);
+  const navigate = useNavigate();
 
   const resolvedHeight = height || "350px";
   const cardHeight = cardheight || "200px";
-console.log("id",id)
+
   const handleHoverStart = () => {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsHovered(true);
@@ -39,17 +42,26 @@ console.log("id",id)
     setIsHovered(false);
   };
 
-  return (
-    <motion.div
-      className="relative"
-      onMouseEnter={handleHoverStart}
-      onMouseLeave={handleHoverEnd}
-      initial={{ scaleY: 1 }}
-      animate={{ scaleY: isHovered ? 1.2 : 1 }}
-      transition={{ duration: 0.3 }}
-    >
-<Link to={`${axiosUrl === '/lectures' ? '/documentaries' : `${axiosUrl}`}/${id}`}>
+  const handleCardClick = () => {
+    navigate(`${axiosUrl === "/lectures" ? "/documentaries" : `${axiosUrl}`}/${id}`);
+  };
 
+  const toggleModal = (e) => {
+    e.stopPropagation(); // Prevent triggering card click
+    setIsModalOpen(!isModalOpen);
+  };
+
+  return (
+    <>
+      <motion.div
+        className="relative cursor-pointer"
+        onMouseEnter={handleHoverStart}
+        onMouseLeave={handleHoverEnd}
+        onClick={handleCardClick}
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: isHovered ? 1.05 : 1 }}
+        transition={{ duration: 0.3 }}
+      >
         <div
           className="relative bg-black text-white rounded-lg shadow-lg overflow-hidden"
           style={{ height: cardHeight }}
@@ -81,18 +93,30 @@ console.log("id",id)
               <h3 className="text-lg font-semibold mb-2">{title}</h3>
               <div className="flex items-center space-x-4 mb-4 flex-row">
                 <div className="flex-1 space-x-2">
-                  <button className="items-center justify-center bg-white text-black w-10 h-10 rounded-full hover:bg-gray-200 ease-in-out transition duration-300">
+                  <button
+                    className="items-center justify-center bg-white text-black w-10 h-10 rounded-full hover:bg-gray-200 ease-in-out transition duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <PlayArrowIcon />
                   </button>
-                  <button className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300">
+                  <button
+                    className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <AddIcon />
                   </button>
-                  <button className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300">
+                  <button
+                    className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <ThumbUpAltOutlinedIcon />
                   </button>
                 </div>
                 <div>
-                  <button className="flex items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300">
+                  <button
+                    className="flex items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300"
+                    onClick={toggleModal}
+                  >
                     <ExpandMoreIcon />
                   </button>
                 </div>
@@ -105,8 +129,16 @@ console.log("id",id)
             </motion.div>
           )}
         </div>
-      </Link>
-    </motion.div>
+      </motion.div>
+
+      {isModalOpen && (
+        <MediaModal
+          id={id}
+          onClose={() => setIsModalOpen(false)}
+          axiosUrl={axiosUrl}
+        />
+      )}
+    </>
   );
 };
 

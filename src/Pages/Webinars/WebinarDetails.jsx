@@ -157,7 +157,7 @@ const WebinarDetails = () => {
                 </div>
                 <div className="flex justify-between mt-2 flex-wrap">
                   <p className="text-white text-lg font-medium mr-4">
-                    {webinar.startDate.split("T")[0]}
+                    {webinar.startDate.split("T")[0] || null}
                   </p>
                 </div>
                 <div className="text-lg font-medium mr-4">

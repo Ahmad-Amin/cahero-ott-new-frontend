@@ -4,6 +4,8 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MediaModal from "../Components/Modals/MediaModal";
+
 
 const NumberMediaCard = ({
   title,

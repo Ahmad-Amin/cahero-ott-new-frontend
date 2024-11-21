@@ -24,6 +24,7 @@ const urlBasedOnType = (type, id) => {
 
 const Comments = ({ type, onCommentAdded }) => {
   const [rating, setRating] = useState(0);
+  const [me, setMe] = useState();
   const [commentText, setCommentText] = useState("");
   const [commentsData, setCommentsData] = useState([]);
   const { id } = useParams();
@@ -31,6 +32,7 @@ const Comments = ({ type, onCommentAdded }) => {
   const { user } = useSelector((state) => state.auth);
   const [replyTexts, setReplyTexts] = useState({});
 
+  console.log("user: ", user)
   const [menuAnchor, setMenuAnchor] = useState({
     anchorEl: null,
     commentId: null,
@@ -52,6 +54,7 @@ const Comments = ({ type, onCommentAdded }) => {
       setLoading(true);
       const response = await axiosInstance.get(baseApiPath);
       setCommentsData(response.data);
+      console.log(response);
     } catch (error) {
       console.error("Failed to fetch reviews", error);
     } finally {
@@ -150,6 +153,22 @@ const Comments = ({ type, onCommentAdded }) => {
     setReplyTexts((prev) => ({ ...prev, [reviewId]: text }));
   };
 
+  useEffect(() => {
+    const fetchUser = async() => {
+      try{
+        setLoading(true)
+        const response = await axiosInstance("/me");
+        setMe(response.data)
+      }
+      catch(error){
+        console.error("Failed to fetch user")
+      }
+      finally{
+        setLoading(false)
+      }
+    }
+  })
+
   return (
     <LoadingWrapper loading={loading}>
       <div className="bg-[#101011] mx-8 py-4 rounded-lg border-2 border-[#404041]">
@@ -157,11 +176,15 @@ const Comments = ({ type, onCommentAdded }) => {
           <div className="flex-1">
             <div className="flex items-center m-5">
               <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
+                {user.profileImageUrl ? (<img
+                  src={`${process.env.PUBLIC_URL}/images/Thumbnail.png` || user.profileImageUrl}
                   alt=""
                   className="w-full h-full object-cover"
-                />
+                />) : (<div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span className="text-white font-bold">
+                    {user?.firstName?.[0].toUpperCase()}
+                  </span>
+                </div>)}
               </div>
               <textarea
                 type="text"
@@ -198,11 +221,15 @@ const Comments = ({ type, onCommentAdded }) => {
           <div>
             <div className="flex flex-row items-center bg-transparent w-full h-16 mt-2">
               <div className="w-10 h-10 rounded-full overflow-hidden mx-5">
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
+              {comment.profileImageUrl ? (<img
+                  src={`${process.env.PUBLIC_URL}/images/Thumbnail.png` || comment.profileImageUrl}
                   alt=""
                   className="w-full h-full object-cover"
-                />
+                />) : (<div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span className="text-white font-bold">
+                    {comment?.createdBy.firstName?.[0].toUpperCase()}
+                  </span>
+                </div>)}
               </div>
               <div className="flex-1">
                 <h2 className="text-[#b1b1b1] font-semibold">
@@ -265,11 +292,15 @@ const Comments = ({ type, onCommentAdded }) => {
               <div className="flex-1">
                 <div className="flex items-center m-5">
                   <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
+                  {comment.profileImageUrl ? (<img
+                  src={`${process.env.PUBLIC_URL}/images/Thumbnail.png` || comment.profileImageUrl}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />) : (<div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span className="text-white font-bold">
+                    {comment?.createdBy.firstName?.[0].toUpperCase()}
+                  </span>
+                </div>)}
                   </div>
                   <textarea
                     type="text"
@@ -298,11 +329,15 @@ const Comments = ({ type, onCommentAdded }) => {
               >
                 <div className="flex items-center mx-3 mb-3">
                   <div className="w-8 h-8 rounded-full overflow-hidden mr-3">
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
+                  {comment.profileImageUrl ? (<img
+                  src={`${process.env.PUBLIC_URL}/images/Thumbnail.png` || comment.profileImageUrl}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />) : (<div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span className="text-white font-bold">
+                    {comment?.createdBy.firstName?.[0].toUpperCase()}
+                  </span>
+                </div>)}
                   </div>
                   <div className="flex flex-row items-center justify-between flex-1">
                     <div>

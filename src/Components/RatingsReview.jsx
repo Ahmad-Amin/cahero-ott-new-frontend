@@ -14,6 +14,7 @@ const RatingsReviews = ({ type }) => {
         const response = await axiosInstance.get(
           `/${type}s/${id}/reviews/stats`
         );
+        console.log(response);
         setStats(response.data);
       } catch (error) {
         console.error("Failed to fetch review stats", error);

@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axiosInstance from "../../lib/axiosInstance";
+import LoadingWrapper from "../../ui/LoadingWrapper"
 
 const NumberCarousel = ({ heading, height, cardheight, axiosURL, cardsSpace, slides }) => {
   const [mediaData, setMediaData] = useState([]);
@@ -27,7 +28,7 @@ const NumberCarousel = ({ heading, height, cardheight, axiosURL, cardsSpace, sli
   }, [axiosURL]);
 
   if (loading) {
-    return <div className="text-white text-center">Loading...</div>;
+    return <div className="text-white text-center"><LoadingWrapper loading={loading}/></div>;
   }
 
   return (
@@ -64,6 +65,8 @@ const NumberCarousel = ({ heading, height, cardheight, axiosURL, cardsSpace, sli
                 height={height}
                 cardheight={cardheight}
                 author={media.author}
+                id={media.id}
+                axiosUrl={axiosURL}
               />
             </div>
           </SwiperSlide>
