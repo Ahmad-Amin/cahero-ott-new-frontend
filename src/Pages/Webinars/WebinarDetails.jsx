@@ -13,7 +13,9 @@ import RatingsReviews from "../../Components/RatingsReview";
 import Comments from "../../Components/Comments";
 import { updateUser } from "../../Slice/AuthSlice";
 import { toast } from "react-toastify";
-const drawerWidth = 280;
+import { Link } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md"; // Importing the left arrow icon from React Icons
+
 const type = "webinar";
 
 const WebinarDetails = () => {
@@ -122,6 +124,16 @@ const WebinarDetails = () => {
     <div className="mt-24">
       
         <LoadingWrapper loading={loading}>
+        <Link to={"/webinars"}>
+            <button
+              style={{ zIndex: 3 }}
+              className="relative flex items-center bg-transparent text-white mx-5 opacity-75 hover:opacity-100 text-lg font-semibold"
+            >
+              <MdArrowBack className="mr-2" />
+              BACK
+            </button>
+          </Link>
+
           {webinar && (
             <div
               style={{ position: "relative", zIndex: 2 }}

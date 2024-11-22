@@ -110,7 +110,7 @@ const BookDetails = () => {
       
         <LoadingWrapper loading={loading} className="h-full">
           
-          <Link to={"/all-books"}>
+          <Link to={"/books"}>
             <button
               style={{ zIndex: 3 }}
               className="relative flex items-center bg-transparent text-white mx-5 opacity-75 hover:opacity-100 text-lg font-semibold"

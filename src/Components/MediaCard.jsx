@@ -59,7 +59,7 @@ const MediaCard = ({
         onMouseLeave={handleHoverEnd}
         onClick={handleCardClick}
         initial={{ scaleY: 1 }}
-        animate={{ scaleY: isHovered ? 1.05 : 1 }}
+        animate={{ scale: isHovered ? 1.05 : 1 }}
         transition={{ duration: 0.3 }}
       >
         <div

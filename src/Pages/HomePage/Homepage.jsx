@@ -21,7 +21,7 @@ const Homepage = () => {
       />
       <NumberCarousel
         heading={"Recommended Webinars for you"}
-        axiosURL={"/webinars?type=past"}
+        axiosURL={"/webinars"}
         height="350px"
         cardheight="200px"
         cardsSpace={90}
@@ -32,13 +32,6 @@ const Homepage = () => {
         axiosURL={"/webinars"}
         cardsSpace={10}
       />
-      <MediaCarousel
-        heading={"Latest Books"}
-        height={"400px"}
-        cardheight={"400px"}
-        axiosURL={"/books"}
-        cardsSpace={40}
-      />
       <NumberCarousel
         heading={"Recommended Books"}
         axiosURL={"/books"}
@@ -46,6 +39,13 @@ const Homepage = () => {
         cardheight="350px"
         cardsSpace={90}
         slides={5}
+      />
+      <MediaCarousel
+        heading={"Latest Books"}
+        height={"350px"}
+        cardheight={"350px"}
+        axiosURL={"/books"}
+        cardsSpace={40}
       />
     </div>
   );

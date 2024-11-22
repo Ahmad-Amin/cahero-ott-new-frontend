@@ -28,7 +28,7 @@ function Banner() {
 
   return (
     <div >
-      <div className="relative mt-16">
+      <div className="relative">
       <img
         src={
           latestWebinar?.coverImageUrl ||

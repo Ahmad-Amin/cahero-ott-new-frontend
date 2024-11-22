@@ -15,7 +15,7 @@ const NumberCarousel = ({ heading, height, cardheight, axiosURL, cardsSpace, sli
   useEffect(() => {
     const fetchMediaData = async () => {
       try {
-        const response = await axiosInstance.get(axiosURL);
+        const response = await axiosInstance.get(`${axiosURL}`);
         setMediaData(response.data.slice(0, 10));
         setLoading(false);
       } catch (error) {

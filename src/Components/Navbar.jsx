@@ -14,6 +14,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Link } from "react-router-dom";
 import axiosInstance from "../lib/axiosInstance";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -41,26 +42,47 @@ function Navbar() {
     role: "",
   });
   const [notifications, setNotifications] = useState([]);
+  const [isScrolled, setIsScrolled] = useState(false); // Track scrolling state
   const dispatch = useDispatch();
   const location = useLocation(); // To determine the active tab
   const currentUser = useSelector((state) => state.auth.user); // Get the current user from Redux state
 
+  // Scroll event listener to change navbar background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axiosInstance.get("/notifications");
-        const filteredNotifications = response.data.results.filter((notification) =>
-          (currentUser.role === "admin" && (notification.recipientType === "Admins" || notification.recipientType === "All")) ||
-          (currentUser.role === "user" && (notification.recipientType === "Users" || notification.recipientType === "All"))
-        )
-        const latestNotifications = filteredNotifications.slice(0, 5); 
+        const filteredNotifications = response.data.results.filter(
+          (notification) =>
+            (currentUser.role === "admin" &&
+              (notification.recipientType === "Admins" ||
+                notification.recipientType === "All")) ||
+            (currentUser.role === "user" &&
+              (notification.recipientType === "Users" ||
+                notification.recipientType === "All"))
+        );
+        const latestNotifications = filteredNotifications.slice(0, 5);
         setNotifications(latestNotifications);
       } catch (err) {
         console.error("Error fetching notifications:", err);
       }
     };
-  
+
     fetchNotifications();
   }, []);
 
@@ -110,8 +132,13 @@ function Navbar() {
     };
   }, []);
 
+
   return (
-    <nav className="bg-black text-white">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Left Section */}
         <div className="flex items-center space-x-8">
@@ -203,7 +230,7 @@ function Navbar() {
           {currentUser ? (
             <>
               <div ref={dropdownRef}>
-                <button onClick={toggleDropdown} className="p-2 bg-[#1b1a1a] hover:bg-[#413e3e] ease-in-out transition duration-300 rounded-lg">
+                <button onClick={toggleDropdown} className="p-2 bg-[#1b1a1a] hover:bg-[#413e3e] text-white ease-in-out transition duration-300 rounded-lg">
                   <NotificationsNoneIcon />
                 </button>
                 {isDropdownOpen && (
