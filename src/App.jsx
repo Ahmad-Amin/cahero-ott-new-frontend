@@ -24,6 +24,7 @@ import NotificationsUser from './Pages/Profile Settings/Notifications';
 import EditProfile from './Pages/Profile Settings/EditProfile';
 import EditEmail from './Pages/Profile Settings/EditEmail';
 import EditPassword from './Pages/Profile Settings/EditPassword';
+import Favorite from './Pages/Favourite/Favourite';
 
 
 const App = () => {
@@ -44,6 +45,8 @@ const App = () => {
           <Route path="/profile-settings/edit-profile" element={<UserProtectedRoute><EditProfile /></UserProtectedRoute>} />
           <Route path="/profile-settings/edit-password" element={<UserProtectedRoute><EditPassword /></UserProtectedRoute>} />
           <Route path="/profile-settings/edit-email" element={<UserProtectedRoute><EditEmail /></UserProtectedRoute>} />
+          <Route path="/favourites" element={<UserProtectedRoute><Favorite /></UserProtectedRoute>} />
+
 
           <Route path="/webinars/:id" element={<UserProtectedRoute><WebinarDetails /></UserProtectedRoute>} />
           <Route path="/books/:id" element={<UserProtectedRoute><BookDetails /></UserProtectedRoute>} />
