@@ -108,10 +108,15 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
           </div>
 
           <div className="md:w-1/2 p-6 text-white">
-            <p>{data.duration || data.startDate.split("T")[0] || null}</p>
+            <p>
+              {data.duration ||
+                (data.startDate ? data.startDate.split("T")[0] : null)}
+            </p>
+
             <h2 className="mt-2 text-2xl font-semibold">{data.title}</h2>
-            <p className=" text-md opacity-60 line-clamp-3 text-ellipsis">{data.description}</p>
-            
+            <p className="text-md opacity-60 line-clamp-3 text-ellipsis">
+              {data.description}
+            </p>
           </div>
         </div>
       </div>

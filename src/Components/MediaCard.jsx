@@ -14,9 +14,7 @@ import { updateUser } from "../Slice/AuthSlice";
 const MediaCard = ({
   title,
   thumbnail,
-  recentlyAdded,
   duration,
-  ageRating,
   height,
   cardheight,
   author,
@@ -90,8 +88,9 @@ const MediaCard = ({
           className="relative bg-black text-white rounded-lg shadow-lg"
           style={{ height: cardHeight }}
         >
-          {/* Thumbnail */}
-          <div className="relative w-full h-full z-10 hover:-translate-y-8 ease-in-out transition duration-300">
+          <div className={`relative w-full h-full z-10 transition-transform duration-300 ${
+        isHovered ? "-translate-y-5" : ""
+      }`}>
             <img
               src={thumbnail}
               alt={title}

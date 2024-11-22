@@ -132,24 +132,24 @@ const EditProfile = () => {
           </div>
         </div>
 
-        <div className="mb-6">
-          <label
-            htmlFor="address"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            className="border text-sm rounded-lg block w-full p-2.5 bg-[#0e0e0e] border-[#333333] placeholder-[#858585] text-white outline-none h-12"
-            placeholder="3066 zoeni 12st lahoree"
-          />
-        </div>
-
         <div className="grid gap-6 mb-6 md:grid-cols-3">
+        <div>
+            <label
+              htmlFor="country"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Country
+            </label>
+            <input
+              type="text"
+              id="country"
+              value={formData.state}
+              onChange={handleInputChange}
+              className="border text-sm rounded-lg block w-full p-2.5 bg-[#0e0e0e] border-[#333333] placeholder-[#858585] text-white outline-none h-12"
+              placeholder="Pakistan"
+            />
+          </div>
+          
           <div>
             <label
               htmlFor="city"
@@ -167,22 +167,7 @@ const EditProfile = () => {
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="state"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              State
-            </label>
-            <input
-              type="text"
-              id="state"
-              value={formData.state}
-              onChange={handleInputChange}
-              className="border text-sm rounded-lg block w-full p-2.5 bg-[#0e0e0e] border-[#333333] placeholder-[#858585] text-white outline-none h-12"
-              placeholder="Pakistan"
-            />
-          </div>
+          
 
           <div>
             <label
@@ -200,23 +185,6 @@ const EditProfile = () => {
               placeholder="12345678999"
             />
           </div>
-        </div>
-
-        <div className="mb-6">
-          <label
-            htmlFor="password"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            className="border text-sm rounded-lg block w-full p-2.5 bg-[#0e0e0e] border-[#333333] placeholder-[#858585] text-white outline-none h-12"
-            placeholder="12345aaaa"
-          />
         </div>
 
         <div className="w-full flex justify-end">

@@ -27,34 +27,36 @@ const Webinars = () => {
     <div className="mt-28 mx-8">
       <div className="flex flex-row">
         <div className="flex-1">
-          <p className="text-3xl text-white font-semibold">Upcomming Webinars</p>
+          <p className="text-3xl text-white font-semibold">
+            Upcomming Webinars
+          </p>
         </div>
         <div>
           <SearchBar />
         </div>
       </div>
       <LoadingWrapper loading={loading}>
-
-      <div className=" grid grid-cols-3 gap-6">
-        {webinars.map((media) => (
-          <WebinarCard
-            key={media.id}
-            title={media.title}
-            thumbnail={media.coverImageUrl}
-            recentlyAdded={media.recentlyAdded}
-            duration={media.duration}
-            ageRating={media.ageRating}
-            tags={media.tags}
-            type={media.type}
-            author={media.author}
-            data={media.startDate}
-            cardheight={"300px"}
-            height={"400px"}
-          />
-        ))}
-      </div>
+        <div className="grid grid-cols-3 gap-6">
+          {webinars.map((media) => (
+            <WebinarCard
+              key={media.id}
+              id={media.id} 
+              title={media.title}
+              thumbnail={media.coverImageUrl}
+              recentlyAdded={media.recentlyAdded}
+              duration={media.duration}
+              ageRating={media.ageRating}
+              tags={media.tags}
+              type={media.type}
+              author={media.author}
+              date={media.startDate}
+              cardheight={"300px"}
+              height={"400px"}
+              axiosUrl={"/webinars"}
+            />
+          ))}
+        </div>
       </LoadingWrapper>
-
     </div>
   );
 };

@@ -39,6 +39,7 @@ const Documentaries = () => {
           {documentaries.map((media) => (
             <MediaCard
               key={media.id}
+              id={media.id}
               title={media.title}
               thumbnail={media.coverImageUrl}
               recentlyAdded={media.recentlyAdded}
@@ -50,6 +51,7 @@ const Documentaries = () => {
               data={media.startDate}
               cardheight={"300px"}
               height={"400px"}
+              axiosUrl={"/lectures"}
             />
           ))}
         </div>

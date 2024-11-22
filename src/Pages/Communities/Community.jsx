@@ -175,13 +175,7 @@ const Community = () => {
               Community
             </p>
             <button
-              className="bg-[#6a55ea] hover:bg-[#5242b6] transition duration-300 w-auto px-5 h-9 text-white font-semibold mr-10 rounded-lg "
-              onClick={handleCreateClick}
-            >
-              Create
-            </button>
-            <button
-              className="bg-[#1b1a1a] hover:bg-[#413e3e] transition duration-300 w-auto px-5 h-9 text-white font-semibold mr-20 rounded-lg"
+              className="bg-[#1b1a1a] hover:bg-[#413e3e] transition duration-300 w-auto px-2 h-9 text-white font-semibold mr-5 rounded-lg"
               onClick={toggleMembersDropdown}
             >
               {isMembersVisible ? (
@@ -194,6 +188,13 @@ const Community = () => {
                 </>
               )}
             </button>
+            <button
+              className="bg-[#6a55ea] hover:bg-[#5242b6] transition duration-300 w-auto px-5 h-9 text-white font-semibold mr-20 rounded-lg "
+              onClick={handleCreateClick}
+            >
+              Create
+            </button>
+            
           </div>
 
           <div className="flex mt-5">

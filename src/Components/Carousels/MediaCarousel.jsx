@@ -14,6 +14,7 @@ const MediaCarousel = ({
   cardheight,
   axiosURL,
   cardsSpace,
+  slide
 }) => {
   const [mediaData, setMediaData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ const MediaCarousel = ({
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={cardsSpace}
-          slidesPerView={5}
+          slidesPerView={slide}
           navigation
           pagination={{ clickable: true }}
           className="relative overflow-visible"

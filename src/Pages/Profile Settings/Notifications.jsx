@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
 import axiosInstance from "../../lib/axiosInstance";
 import SidebarLayout from "../../layout/SidebarLayout";
-import LoadingWrapper from "../../ui/LoadingWrapper"
+import LoadingWrapper from "../../ui/LoadingWrapper";
+
 const NotificationsUser = () => {
   const currentUser = useSelector((state) => state.auth.user);
 
   const [notifications, setNotifications] = useState([]);
-  const [expanded, setExpanded] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentCategory, setCurrentCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [toggle, setToggle] = useState(true);
   const pageSize = 20;
 
   const fetchNotifications = async () => {
@@ -28,37 +29,21 @@ const NotificationsUser = () => {
   };
 
   useEffect(() => {
-    const eventSource = new EventSource(
-      `https://cahero-ott-f285594fd4fa.herokuapp.com/api/notificationStream?role=${currentUser.role}`
-    );
-
-    eventSource.onmessage = function (event) {
-      const notification = JSON.parse(event.data);
-
-      setNotifications((prevNotifications) => [
-        notification,
-        ...prevNotifications,
-      ]);
-    };
-
-    return () => {
-      eventSource.close();
-    };
-  }, []);
-
-  useEffect(() => {
     fetchNotifications();
   }, []);
 
-  const handleToggleExpand = (id) => {
-    setExpanded((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
+  const handleToggle = () => {
+    setToggle(!toggle);
   };
 
-  const totalPages = Math.ceil(notifications.length / pageSize);
-  const paginatedNotifications = notifications.slice(
+  const filteredNotifications = notifications.filter(
+    (notification) =>
+      currentCategory === "All" ||
+      notification.category === currentCategory
+  );
+
+  const totalPages = Math.ceil(filteredNotifications.length / pageSize);
+  const paginatedNotifications = filteredNotifications.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
@@ -73,92 +58,112 @@ const NotificationsUser = () => {
 
   return (
     <SidebarLayout>
-        <LoadingWrapper loading={loading}>
-          <>
-      <div className="font-bold text-4xl text-white mx-5">Notifications</div>
+      <LoadingWrapper loading={loading}>
+        <div className="p-6 text-white">
+          {/* Header Section */}
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold">Notification</h1>
+            <div className="flex items-center">
+              <label className="flex items-center cursor-pointer">
+                <span className="mr-2 text-sm">Turn Off all Notifications</span>
+                <div
+                  className={`w-10 h-5 rounded-full ${
+                    toggle ? "bg-blue-500" : "bg-gray-600"
+                  }`}
+                  onClick={handleToggle}
+                >
+                  <div
+                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform ${
+                      toggle ? "translate-x-5" : "translate-x-0"
+                    }`}
+                  />
+                </div>
+              </label>
+            </div>
+          </div>
 
-      <div className="text-white mx-5 mt-5">
-        {Array.isArray(paginatedNotifications) &&
-        paginatedNotifications.length > 0 ? (
-          paginatedNotifications
-            .filter(
-              (notification) =>
-                (currentUser.role === "admin" &&
-                  (notification.recipientType === "Admins" ||
-                    notification.recipientType === "All")) ||
-                (currentUser.role === "user" &&
-                  (notification.recipientType === "Users" ||
-                    notification.recipientType === "All"))
-            )
-            .map((notification) => (
+          {/* Tabs Section */}
+          <div className="mt-6">
+            <div className="flex space-x-4 border-b border-gray-700 pb-2">
+              {["All", "Category 1", "Category 2", "Category 3"].map(
+                (category) => (
+                  <button
+                    key={category}
+                    className={`text-sm ${
+                      currentCategory === category
+                        ? "text-white font-semibold border-b-2 border-blue-500"
+                        : "text-gray-400"
+                    }`}
+                    onClick={() => setCurrentCategory(category)}
+                  >
+                    {category}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-gray-400 text-sm">Sort by:</span>
+              <select
+                className="bg-[#0e0e0e] text-white p-2 rounded-md"
+                onChange={(e) => console.log(e.target.value)}
+              >
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+
+            {paginatedNotifications.map((notification) => (
               <div
                 key={notification.id}
-                className="mb-4 p-4 bg-[#404041] rounded-lg"
+                className="flex items-center bg-transparent border-b border-[#4c4c4c] rounded-b-none p-4 rounded-lg mb-4"
               >
-                <h1 className="font-semibold text-lg text-white">
-                  {notification.notificationType}
-                </h1>
-                <div
-                  className={`notification-description ${
-                    expanded[notification.id] ? "expanded" : ""
-                  }`}
-                >
-                  {notification.content}
+                <div className="text-blue-400 text-2xl mr-4">
+                  {/* Use different icons based on notification type */}
+                  {notification.notificationType === "webinar" ? (
+                    <i className="fas fa-video-camera"></i>
+                  ) : (
+                    <i className="fas fa-bell"></i>
+                  )}
                 </div>
-                <Button
-                  variant="text"
-                  sx={{ color: "#90caf9" }}
-                  onClick={() => handleToggleExpand(notification.id)}
-                >
-                  {expanded[notification.id] ? "Show Less" : "View More"}
-                </Button>
-                <div className="text-sm text-gray-400">
-                  {notification.createdAt.split("T")[0]}
+                <div>
+                  <h2 className="font-semibold">{notification.notificationType}</h2>
+                  <p className="text-sm text-gray-400 line-clamp-1 text-ellipsis">
+                    {notification.content}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {notification.createdAt.split("T")[0]}
+                  </p>
                 </div>
               </div>
-            ))
-        ) : (
-          <div className="text-white mx-5">No notifications available</div>
-        )}
+            ))}
 
-        <div className="pagination text-white mx-5 mt-5 flex justify-center">
-          <button
-            variant="text"
-            className="px-4 py-2 bg-[#5a49c8] text-white rounded-md mr-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Previous
-          </button>
-          <span className="px-4 py-2 text-white border-2 rounded-md">
-            {currentPage} of {totalPages}
-          </span>
-          <button
-            variant="text"
-            className="px-4 py-2 ml-2 bg-[#5a49c8] text-white rounded-md mr-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Next
-          </button>
+            {/* Pagination */}
+            <div className="flex justify-center mt-6">
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Previous
+              </button>
+              <span className="px-4 text-gray-300">
+                {currentPage} of {totalPages}
+              </span>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <style jsx>{`
-        .notification-description {
-          max-height: 3em;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          transition: max-height 0.3s ease;
-        }
-        .notification-description.expanded {
-          max-height: none;
-          white-space: normal;
-        }
-      `}</style>
-      </>
-    </LoadingWrapper>
+      </LoadingWrapper>
     </SidebarLayout>
   );
 };

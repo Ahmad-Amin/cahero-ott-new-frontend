@@ -37,6 +37,7 @@ const [loading, setLoading] = useState(false);
         {books.map((media) => (
           <MediaCard
             key={media.id}
+            id={media.id}
             title={media.title}
             thumbnail={media.coverImageUrl}
             recentlyAdded={media.recentlyAdded}
@@ -48,6 +49,7 @@ const [loading, setLoading] = useState(false);
             data={media.startDate}
             cardheight="350px"
             height="400px"  
+            axiosUrl={"/books"}
           />
         ))}
       </div>

@@ -2,7 +2,6 @@ import React from "react";
 import Banner from "../../Components/Banner";
 import MediaCarousel from "../../Components/Carousels/MediaCarousel";
 import NumberCarousel from "../../Components/Carousels/NumberCarousel";
-import MovieCards from "../../Components/MovieCards";
 const Homepage = () => {
   return (
     <div>
@@ -19,6 +18,7 @@ const Homepage = () => {
         heading={"Recently Upload Documentaries"}
         axiosURL={"/lectures"}
         cardsSpace={10}
+        slide={5}
       />
       <NumberCarousel
         heading={"Recommended Webinars for you"}
@@ -32,6 +32,7 @@ const Homepage = () => {
         heading={"Upcomming Webinars"}
         axiosURL={"/webinars"}
         cardsSpace={10}
+        slide={5}
       />
       <NumberCarousel
         heading={"Recommended Books"}
@@ -43,10 +44,11 @@ const Homepage = () => {
       />
       <MediaCarousel
         heading={"Latest Books"}
-        height={"350px"}
-        cardheight={"350px"}
+        height={"300px"}
+        cardheight={"300px"}
         axiosURL={"/books"}
         cardsSpace={40}
+        slide={6}
       />
     </div>
   );

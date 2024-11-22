@@ -31,7 +31,7 @@ const EditEmail = () => {
     try {
       await axiosInstance.patch(`/user?id=${user.id}`, { email: newEmail });
       alert("Email updated successfully!");
-      setShowChangeForm(false); // Return to the initial view
+      setShowChangeForm(false); 
     } catch (error) {
       console.error("Failed to update email:", error);
     }
@@ -47,7 +47,6 @@ const EditEmail = () => {
           {user && !showChangeForm && (
             <motion.div
               key="view-email"
-              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}

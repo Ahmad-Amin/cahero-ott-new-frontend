@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../lib/axiosInstance";
 import MediaCard from "../../Components/MediaCard";
+import WebinarCard from "../../Components/WebinarCard";
 import LoadingWrapper from "../../ui/LoadingWrapper";
 
 const Favorite = () => {
@@ -51,13 +52,16 @@ const Favorite = () => {
           No favorites found.
         </p>
       );
-
+  
     switch (activeTab) {
       case "webinars":
         return (
           <div className="grid grid-cols-4 gap-6 mt-10">
-            {data.map((webinar) => (
-              <MediaCard
+            {data
+              .filter((webinar) => webinar) // Ensure item is not null
+              .map((webinar) => (
+                <WebinarCard
+                  key={webinar.id} // Always include a unique key
                   title={webinar.title}
                   thumbnail={webinar.coverImageUrl}
                   recentlyAdded={webinar.recentlyAdded}
@@ -65,48 +69,55 @@ const Favorite = () => {
                   type={webinar.type}
                   axiosUrl={"/webinars"}
                   id={webinar.id}
+                  date={webinar.startTime}
                 />
-            ))}
+              ))}
           </div>
         );
       case "books":
         return (
           <div className="grid grid-cols-4 gap-6 mt-10">
-            {data.map((book) => (
-              <MediaCard
-              title={book.title}
-              thumbnail={book.coverImageUrl}
-              recentlyAdded={book.recentlyAdded}
-              duration={book.duration}
-              ageRating={book.ageRating}
-              tags={book.tags}
-              type={book.type}
-              height={350}
-              cardheight={350}
-              author={book.author}
-              axiosUrl={"/books"}
-              id={book.id}
-            />
-            ))}
+            {data
+              .filter((book) => book) // Ensure item is not null
+              .map((book) => (
+                <MediaCard
+                  key={book.id}
+                  title={book.title}
+                  thumbnail={book.coverImageUrl}
+                  recentlyAdded={book.recentlyAdded}
+                  duration={book.duration}
+                  ageRating={book.ageRating}
+                  tags={book.tags}
+                  type={book.type}
+                  height={350}
+                  cardheight={350}
+                  author={book.author}
+                  axiosUrl={"/books"}
+                  id={book.id}
+                />
+              ))}
           </div>
         );
       case "documentaries":
         return (
-          <div className="grid grid-cols-3 gap-6 mt-10">
-            {data.map((document) => (
-              <MediaCard
-              title={document.title}
-              thumbnail={document.coverImageUrl}
-              recentlyAdded={document.recentlyAdded}
-              duration={document.duration}
-              ageRating={document.ageRating}
-              tags={document.tags}
-              type={document.type}
-              author={document.author}
-              axiosUrl={"/lectures"}
-              id={document.id}
-            />
-            ))}
+          <div className="grid grid-cols-4 gap-6 mt-10">
+            {data
+              .filter((document) => document) // Ensure item is not null
+              .map((document) => (
+                <MediaCard
+                  key={document.id}
+                  title={document.title}
+                  thumbnail={document.coverImageUrl}
+                  recentlyAdded={document.recentlyAdded}
+                  duration={document.duration}
+                  ageRating={document.ageRating}
+                  tags={document.tags}
+                  type={document.type}
+                  author={document.author}
+                  axiosUrl={"/lectures"}
+                  id={document.id}
+                />
+              ))}
           </div>
         );
       default:
