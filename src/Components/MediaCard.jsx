@@ -91,7 +91,7 @@ const MediaCard = ({
           style={{ height: cardHeight }}
         >
           {/* Thumbnail */}
-          <div className="relative w-full h-full z-10">
+          <div className="relative w-full h-full z-10 hover:-translate-y-8 ease-in-out transition duration-300">
             <img
               src={thumbnail}
               alt={title}
