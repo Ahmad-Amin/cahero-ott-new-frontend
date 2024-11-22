@@ -71,6 +71,8 @@ const MediaCarousel = ({
                   author={media.author}
                   axiosUrl={URL}
                   id={media.id}
+                  category={media.category}
+                  genre={media.genre}
                 />
               </SwiperSlide>
             );

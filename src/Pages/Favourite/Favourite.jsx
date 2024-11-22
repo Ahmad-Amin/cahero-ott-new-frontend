@@ -29,6 +29,7 @@ const Favorite = () => {
       const response = await axiosInstance.get(url);
       const items = response?.data?.favorites?.map((fav) => fav.item) || [];
       setData(items);
+      console.log(items)
       console.log("items",items)
     } catch (error) {
       console.error("Error fetching data:", error);

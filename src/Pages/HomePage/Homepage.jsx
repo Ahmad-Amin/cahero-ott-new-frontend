@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "../../Components/Banner";
 import MediaCarousel from "../../Components/Carousels/MediaCarousel";
 import NumberCarousel from "../../Components/Carousels/NumberCarousel";
+import MovieCards from "../../Components/MovieCards";
 const Homepage = () => {
   return (
     <div>
@@ -35,8 +36,8 @@ const Homepage = () => {
       <NumberCarousel
         heading={"Recommended Books"}
         axiosURL={"/books"}
-        height="350px"
-        cardheight="350px"
+        height="300px"
+        cardheight="300px"
         cardsSpace={90}
         slides={5}
       />

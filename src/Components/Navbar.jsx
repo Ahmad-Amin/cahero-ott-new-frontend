@@ -47,7 +47,6 @@ function Navbar() {
   const location = useLocation(); // To determine the active tab
   const currentUser = useSelector((state) => state.auth.user); // Get the current user from Redux state
 
-  // Scroll event listener to change navbar background
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -144,11 +143,13 @@ function Navbar() {
         <div className="flex items-center space-x-8">
   {/* Logo */}
   <div className="flex items-center space-x-2">
-    <img
+   <Link to={"/"}>
+   <img
       src={`${process.env.PUBLIC_URL}/Images/Cahero Legacy.png`}
       alt="Cahero Legacy"
       className="h-16"
     />
+   </Link>
   </div>
 
   {/* Navigation Links */}

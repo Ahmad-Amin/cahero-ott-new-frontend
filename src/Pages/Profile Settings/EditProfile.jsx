@@ -127,6 +127,7 @@ const EditProfile = () => {
               className="border text-sm rounded-lg block w-full p-2.5 bg-[#0e0e0e] border-[#333333] placeholder-[#858585] text-white outline-none h-12"
               placeholder="John@xyz.com"
               disabled
+              readOnly
             />
           </div>
         </div>

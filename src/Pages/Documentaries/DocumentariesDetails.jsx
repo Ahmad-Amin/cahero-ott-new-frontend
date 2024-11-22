@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
-// import LoginedNavbar from "../components/LoginedNavbar";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import LoadingWrapper from "../../ui/LoadingWrapper";
 import { useDispatch, useSelector } from "react-redux";
-// import Navbar from "../components/Navbar";
 import RatingsReviews from "../../Components/RatingsReview";
 import Comments from "../../Components/Comments";
 import { Link, useParams } from "react-router-dom";
@@ -13,7 +11,7 @@ import { FaStar } from "react-icons/fa6";
 import { FaRegStar } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { updateUser } from "../../Slice/AuthSlice";
-import { MdArrowBack } from "react-icons/md"; // Importing the left arrow icon from React Icons
+import { MdArrowBack } from "react-icons/md"; 
   
 const type = "lecture";
 
