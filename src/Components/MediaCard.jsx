@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -22,9 +22,9 @@ const MediaCard = ({
   id,
   axiosUrl,
   category,
-  genre
+  genre,
 }) => {
-  const { user } = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(
@@ -50,6 +50,12 @@ const MediaCard = ({
 
   const toggleFavorite = async (e) => {
     e.stopPropagation();
+
+    if (!user) {
+      toast.warning("Please log in to manage favorites!");
+      return;
+    }
+
     try {
       if (isFavorite) {
         await axiosInstance.delete(`/webinars/${id}/favorite`);
@@ -62,6 +68,7 @@ const MediaCard = ({
       }
     } catch (error) {
       console.error("Error toggling favorite status", error);
+      toast.error("Something went wrong while updating favorites.");
     } finally {
       fetchLatestUsers();
     }
@@ -79,7 +86,7 @@ const MediaCard = ({
   return (
     <>
       <div
-        className="relative cursor-pointer transition-transform duration-300 "
+        className="relative cursor-pointer transition-transform duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={handleCardClick}
@@ -88,9 +95,11 @@ const MediaCard = ({
           className="relative bg-black text-white rounded-lg shadow-lg"
           style={{ height: cardHeight }}
         >
-          <div className={`relative w-full h-full z-10 transition-transform duration-300 ${
-        isHovered ? "-translate-y-5" : ""
-      }`}>
+          <div
+            className={`relative w-full h-full z-10 transition-transform duration-300 ${
+              isHovered ? "-translate-y-5" : ""
+            }`}
+          >
             <img
               src={thumbnail}
               alt={title}
@@ -157,9 +166,7 @@ const MediaCard = ({
                 </p>
               </div>
               <div>
-              <p className="text-sm text-gray-400">
-                  {category || null || genre}
-                </p>
+                <p className="text-sm text-gray-400">{category || genre}</p>
               </div>
             </div>
           </div>

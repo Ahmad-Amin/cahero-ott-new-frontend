@@ -50,6 +50,7 @@ const WebinarDetails = () => {
       }
     })();
   }, [id]);
+  
 
   // Check webinar live status
   useEffect(() => {

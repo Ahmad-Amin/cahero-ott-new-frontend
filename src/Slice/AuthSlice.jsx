@@ -12,21 +12,35 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isAuthenticated = true;
+      const { user, token } = action.payload;
 
-      Cookies.set('token', action.payload.token, { expires: 7 });
+      if (user && token) { // Ensure valid payload
+        state.user = user;
+        state.token = token;
+        state.isAuthenticated = true;
+
+        Cookies.set('token', token, { expires: 7 }); // Persist token for 7 days
+      }
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+
+      Cookies.remove('token'); // Remove token cookie
     },
     updateUser: (state, action) => {
-      state.user = action.payload.user;
-      state.isAuthenticated = true || true;
-      state.token = action.payload.token || state.token;
+      const { user, token } = action.payload;
+
+      if (user) {
+        state.user = user;
+        state.isAuthenticated = true;
+
+        if (token) {
+          state.token = token;
+          Cookies.set('token', token, { expires: 7 }); // Update token if provided
+        }
+      }
     },
   },
 });

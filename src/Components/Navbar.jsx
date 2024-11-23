@@ -35,12 +35,6 @@ function Navbar() {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    role: "",
-  });
   const [notifications, setNotifications] = useState([]);
   const [isScrolled, setIsScrolled] = useState(false); // Track scrolling state
   const dispatch = useDispatch();
@@ -324,7 +318,7 @@ function Navbar() {
                           Settings
                         </Link>
                       </li>
-                      {userData.role === "admin" && (
+                      {currentUser.role === "admin" && (
                         <li>
                           <Link
                             to="/dashboard"
