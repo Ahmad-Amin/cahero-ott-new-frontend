@@ -115,6 +115,7 @@ const Documentaries = () => {
                 type={media.type}
                 author={media.author}
                 data={media.startDate}
+                category={media.category}
                 cardheight={"300px"}
                 height={"400px"}
                 axiosUrl={"/lectures"}

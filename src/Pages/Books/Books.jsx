@@ -115,6 +115,7 @@ const Books = () => {
                 type={media.type}
                 author={media.author}
                 data={media.startDate}
+                genre={media.genre}
                 cardheight="350px"
                 height="400px"
                 axiosUrl={"/books"}

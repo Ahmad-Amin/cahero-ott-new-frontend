@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
@@ -27,15 +27,20 @@ const MediaCard = ({
   const user = useSelector((state) => state.auth.user);
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(
-    user?.favorites?.some((favorite) => favorite.item === id) || false
-  );
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const resolvedHeight = height || "350px";
   const cardHeight = cardheight || "200px";
+
+  // Update isFavorite when user or favorites list changes
+  useEffect(() => {
+    if (user && user.favorites) {
+      setIsFavorite(user.favorites.some((favorite) => favorite.item === id));
+    }
+  }, [user, id]);
 
   const handleCardClick = () => {
     navigate(

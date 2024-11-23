@@ -50,12 +50,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditNotifications from "./Pages/Admin Pages/EditNotifications";
 import AdminCommunity from "./Pages/Admin Pages/AdminCommunity";
-
+import StreamPage from "./Pages/stream/StreamPage"
 
 const App = () => {
   return (
     <Provider store={store}>
     <Router>
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false}/>
       <UserLayout>
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -74,6 +75,7 @@ const App = () => {
 
 
           <Route path="/webinars/:id" element={<UserProtectedRoute><WebinarDetails /></UserProtectedRoute>} />
+          <Route path="/webinar/:id/user-lobby" element={<UserProtectedRoute><StreamPage /></UserProtectedRoute>} />
           <Route path="/books/:id" element={<UserProtectedRoute><BookDetails /></UserProtectedRoute>} />
           <Route path="/documentaries/:id" element={<UserProtectedRoute><LectureDetails /></UserProtectedRoute>} />
           <Route path="/documentaries/details/:id" element={<UserProtectedRoute><VideoPlayer /></UserProtectedRoute>} />

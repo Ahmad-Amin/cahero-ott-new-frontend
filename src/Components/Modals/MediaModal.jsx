@@ -5,18 +5,59 @@ import LoadingWrapper from "../../ui/LoadingWrapper";
 import AddIcon from "@mui/icons-material/Add";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../../Slice/AuthSlice";
+import { toast } from "react-toastify";
+import DoneIcon from "@mui/icons-material/Done";
+
 const MediaModal = ({ id, onClose, axiosUrl }) => {
+  const user = useSelector((state) => state.auth.user);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const dispatch = useDispatch();
+
+  // Sync isFavorite state whenever the user or favorites list changes
+  useEffect(() => {
+    if (user && user.favorites) {
+      setIsFavorite(user.favorites.some((favorite) => favorite.item === id));
+    }
+  }, [user, id]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  const toggleFavorite = async (e) => {
+    e.stopPropagation();
+
+    if (!user) {
+      toast.warning("Please log in to manage favorites!");
+      return;
+    }
+
+    try {
+      if (isFavorite) {
+        await axiosInstance.delete(`/webinars/${id}/favorite`);
+        setIsFavorite(false);
+        toast.success("Removed from Favourites");
+      } else {
+        await axiosInstance.post(`/webinars/${id}/favorite`);
+        setIsFavorite(true);
+        toast.success("Added To Favourites");
+      }
+    } catch (error) {
+      console.error("Error toggling favorite status", error);
+      toast.error("Something went wrong while updating favorites.");
+    } finally {
+      fetchLatestUsers();
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +72,22 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
     };
 
     fetchData();
-  }, [id]);
+  }, [id, axiosUrl]);
+
+  const fetchLatestUsers = async () => {
+    try {
+      const response = await axiosInstance.get("/me");
+      dispatch(updateUser({ user: response.data }));
+    } catch (error) {
+      console.error("Error fetching latest users:", error);
+    }
+  };
+
+  const handleOverlayClick = (e) => {
+    if (e.target.id === "modal-overlay") {
+      onClose();
+    }
+  };
 
   if (loading) {
     return ReactDOM.createPortal(
@@ -56,13 +112,6 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
       document.body
     );
   }
-
-  const handleOverlayClick = (e) => {
-    // Check if the clicked element is the overlay
-    if (e.target.id === "modal-overlay") {
-      onClose();
-    }
-  };
 
   return ReactDOM.createPortal(
     <div
@@ -98,21 +147,48 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
                 <PlayArrowIcon />
                 Play Now
               </button>
-              <button className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300">
-                <AddIcon />
-              </button>
+              {isFavorite ? (
+                <button
+                  className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 transition duration-300"
+                  onClick={toggleFavorite}
+                >
+                  <DoneIcon />
+                </button>
+              ) : (
+                <button
+                  className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 transition duration-300"
+                  onClick={toggleFavorite}
+                >
+                  <AddIcon />
+                </button>
+              )}
               <button className="items-center justify-center border border-[#868686] text-[#868686] w-10 h-10 rounded-full hover:bg-white hover:bg-opacity-10 ease-in-out transition duration-300">
                 <ThumbUpAltOutlinedIcon />
               </button>
             </div>
           </div>
 
-          <div className="md:w-1/2 p-6 text-white">
-            <p>
-              {data.duration ||
-                (data.startDate ? data.startDate.split("T")[0] : null)}
+          <div className="flex flex-row p-4 gap-2 text-white items-center">
+            <p className="border border-[#565656] text-[#565656] h-5 px-1 text-xs">
+              France
             </p>
-
+            <p className="text-white font-thin text-md opacity-60">
+              {data.duration ||
+                (data.startDate ? data.startDate.split("T")[0] : null || data.author || null)}
+            </p>
+            <p className="border border-[#565656] text-[#565656] h-5 px-1 mr-2 text-xs">
+              HD
+            </p>
+            <p className="border border-[#565656] text-[#565656] h-5 px-1 mr-2 text-xs">
+              2024
+            </p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400 px-4">
+              {data.category || data.genre || data.type || null}
+            </p>
+          </div>
+          <div className="px-4 text-white">
             <h2 className="mt-2 text-2xl font-semibold">{data.title}</h2>
             <p className="text-md opacity-60 line-clamp-3 text-ellipsis">
               {data.description}
