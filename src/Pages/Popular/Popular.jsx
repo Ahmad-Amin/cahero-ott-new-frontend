@@ -63,7 +63,7 @@ const Popular = () => {
     <div className="mt-24">
         <LoadingWrapper loading={loading}>
       <div className="mx-10">
-        <h1 className="text-white font-bold text-2xl my-5">Popular Webinars</h1>
+        <h1 className="text-white font-bold text-2xl my-7">Popular Webinars</h1>
         <div className="grid grid-cols-4 gap-4">
           {webinarData.map((media) => (
             <MediaCard
@@ -89,7 +89,7 @@ const Popular = () => {
         </Link>
       </div>
       <div className="mx-10">
-        <h1 className="text-white font-bold text-2xl my-5">
+        <h1 className="text-white font-bold text-2xl my-7">
           Popular Documentaries
         </h1>
         <div className="grid grid-cols-4 gap-4">
@@ -108,6 +108,7 @@ const Popular = () => {
               author={media.author}
               axiosUrl={"/lectures"}
               id={media.id}
+              category={media.category}
             />
           ))}
         </div>
@@ -117,7 +118,7 @@ const Popular = () => {
         </button></Link>
       </div>
       <div className="mx-10">
-        <h1 className="text-white font-bold text-2xl my-5">Popular Books</h1>
+        <h1 className="text-white font-bold text-2xl my-7">Popular Books</h1>
         <div className="grid grid-cols-5 gap-4">
           {bookData.map((media) => (
             <MediaCard
@@ -134,6 +135,7 @@ const Popular = () => {
               author={media.author}
               axiosUrl={"/books"}
               id={media.id}
+              genre={media.genre}
             />
           ))}
         </div>
