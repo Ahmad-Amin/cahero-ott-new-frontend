@@ -56,7 +56,7 @@ const Books = () => {
   };
 
   return (
-    <div className="mt-28 mx-8">
+    <div className="mt-28 ml-8">
       {/* Header Section */}
       <div className="flex flex-row">
         <div className="flex-1">
@@ -64,7 +64,7 @@ const Books = () => {
             {debouncedSearch ? "Search Results" : `${activeTab} Books`}
           </p>
         </div>
-        <div className="w-full sm:w-96 h-14 bg-transparent text-white font-bold text-xl">
+        <div className="w-full sm:w-96 h-14 bg-transparent text-white font-bold text-xl flex justify-end mr-5">
           <div className="w-full sm:w-3/4 h-12 bg-transparent rounded-3xl flex items-center text-black font-normal text-lg border border-white transition-all duration-300 ease-in-out">
             <input
               type="text"
@@ -78,7 +78,7 @@ const Books = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className="mt-6 flex space-x-4">
+      <div className="mt-6 flex space-x-4 ">
         {tabs.map((tab) => (
           <button
             key={tab}
@@ -100,7 +100,7 @@ const Books = () => {
 
       {/* Books Section */}
       <LoadingWrapper loading={loading}>
-        <div className="grid grid-cols-5 gap-6 mt-6">
+        <div className="grid grid-cols-5 gap-6 mt-6 mr-7">
           {books.length > 0 ? (
             books.map((media) => (
               <MediaCard

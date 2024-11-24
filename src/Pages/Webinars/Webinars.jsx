@@ -56,7 +56,7 @@ const Webinars = () => {
   };
 
   return (
-    <div className="mt-28 mx-8">
+    <div className="mt-28 ml-8">
       {/* Header Section */}
       <div className="flex flex-row">
         <div className="flex-1">
@@ -64,7 +64,7 @@ const Webinars = () => {
             {debouncedSearch ? "Search Results" : `${activeTab} Webinars`}
           </p>
         </div>
-        <div className="w-full sm:w-96 h-14 bg-transparent text-white font-bold text-xl">
+        <div className="w-full sm:w-96 h-14 bg-transparent text-white font-bold text-xl flex justify-end mr-5">
           <div className="w-full sm:w-3/4 h-12 bg-transparent rounded-3xl flex items-center text-black font-normal text-lg border border-white transition-all duration-300 ease-in-out">
             <input
               type="text"
@@ -100,7 +100,7 @@ const Webinars = () => {
 
       {/* Webinars Section */}
       <LoadingWrapper loading={loading}>
-        <div className="grid grid-cols-3 gap-6 mt-6">
+        <div className="grid grid-cols-3 gap-6 mt-6 mr-7">
           {webinars.length > 0 ? (
             webinars.map((media) => (
               <WebinarCard

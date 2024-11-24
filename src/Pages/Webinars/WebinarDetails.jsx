@@ -50,7 +50,6 @@ const WebinarDetails = () => {
       }
     })();
   }, [id]);
-  
 
   // Check webinar live status
   useEffect(() => {
@@ -123,105 +122,104 @@ const WebinarDetails = () => {
 
   return (
     <div className="mt-24">
-      
-        <LoadingWrapper loading={loading}>
+      <LoadingWrapper loading={loading}>
         <Link to={"/webinars"}>
-            <button
-              style={{ zIndex: 3 }}
-              className="relative flex items-center bg-transparent text-white mx-5 opacity-75 hover:opacity-100 text-lg font-semibold"
-            >
-              <MdArrowBack className="mr-2" />
-              BACK
-            </button>
-          </Link>
+          <button
+            style={{ zIndex: 3 }}
+            className="relative flex items-center bg-transparent text-white mx-5 opacity-75 hover:opacity-100 text-lg font-semibold"
+          >
+            <MdArrowBack className="mr-2" />
+            BACK
+          </button>
+        </Link>
 
-          {webinar && (
-            <div
-              style={{ position: "relative", zIndex: 2 }}
-              className="mt-12 mx-4 md:mx-8 flex flex-row items-center justify-start"
-            >
-              <div>
-                <img
-                  src={
-                    webinar.coverImageUrl ||
-                    `${process.env.PUBLIC_URL}/images/Rectangle1.png`
-                  }
-                  alt=""
-                  className="w-full rounded-xl md:w-[288px] h-[296px]"
-                />
-              </div>
-              <div className="mt-10 mx-5 w-full lg:w-2/4 ">
-                <div className="flex justify-between items-center">
-                  <h1 className="text-white text-3xl font-semibold">
-                    {webinar.title}
-                  </h1>
-                  <div className="mx-0 flex items-center gap-1 text-[#FFC01E]">
-                    {[...Array(5)].map((_, index) =>
-                      index < Math.round(stats?.averageRating) ? (
-                        <FaStar key={index} fontSize="medium" />
-                      ) : (
-                        <FaRegStar key={index} fontSize="medium" />
-                      )
-                    )}
-                    <p className="text-white text-lg font-medium">
-                      {stats.averageRating}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex justify-between mt-2 flex-wrap">
-                  <p className="text-white text-lg font-medium mr-4">
-                    {webinar.startDate.split("T")[0] || null}
-                  </p>
-                </div>
-                <div className="text-lg font-medium mr-4">
-                  <p className="text-[#b2b2b2]">
-                    {webinar.startTime} - {webinar.endTime}
-                  </p>
-                </div>
-                <div className="mt-2 mr-0">
-                  <p className="text-white text-base line-clamp-1 text-ellipsis">
-                    {webinar.description}
-                  </p>
-                </div>
-                <div>
-                  {webinarLiveStatus && (
-                    <div className="text-white mt-3 border-2 border-white border-dotted w-1/4 rounded-lg flex items-center justify-center py-1 font-semibold">
-                      {webinarLiveStatus}
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex flex-col md:flex-row items-center">
-                  <button
-                    className={`h-16 w-full md:w-36 text-white rounded-2xl mt-3 ${
-                      isWatchNowEnabled ? "bg-[#6a55ea]" : "bg-gray-500"
-                    }`}
-                    onClick={handleWatchNow}
-                    disabled={!isWatchNowEnabled}
-                  >
-                    Watch Now
-                  </button>
-                  <button
-                    className="bg-white h-16 w-full md:w-16 text-black mx-0 md:mx-5 rounded-2xl mt-3 flex justify-center items-center"
-                    onClick={toggleFavorite}
-                  >
-                    {isFavorite ? (
-                      <FaHeart className="w-6 h-6 text-red-500" />
+        {webinar && (
+          <div
+            style={{ position: "relative", zIndex: 2 }}
+            className="mt-12 mx-4 md:mx-8 flex flex-row items-center justify-start"
+          >
+            <div>
+              <img
+                src={
+                  webinar.coverImageUrl ||
+                  `${process.env.PUBLIC_URL}/images/Rectangle1.png`
+                }
+                alt=""
+                className="w-full rounded-xl md:w-[328px] h-[296px]"
+              />
+            </div>
+            <div className="mt-10 mx-5 w-full lg:w-2/4 ">
+              <div className="flex justify-between items-center">
+                <h1 className="text-white text-3xl font-semibold">
+                  {webinar.title}
+                </h1>
+                <div className="mx-0 flex items-center gap-1 text-[#FFC01E]">
+                  {[...Array(5)].map((_, index) =>
+                    index < Math.round(stats?.averageRating) ? (
+                      <FaStar key={index} fontSize="medium" />
                     ) : (
-                      <FaRegHeart className="w-6 h-6" />
-                    )}
-                  </button>
+                      <FaRegStar key={index} fontSize="medium" />
+                    )
+                  )}
+                  <p className="text-white text-lg font-medium">
+                    {stats.averageRating}
+                  </p>
                 </div>
+              </div>
+              <div className="flex justify-between mt-2 flex-wrap">
+                <p className="text-white text-lg font-medium mr-4">
+                  {webinar.startDate.split("T")[0] || null}
+                </p>
+              </div>
+              <div className="text-lg font-medium mr-4">
+                <p className="text-[#b2b2b2]">
+                  {webinar.startTime} - {webinar.endTime}
+                </p>
+              </div>
+              <div className="mt-2 mr-0">
+                <p className="text-white text-base line-clamp-1 text-ellipsis">
+                  {webinar.description}
+                </p>
+              </div>
+              <div>
+                {webinarLiveStatus && (
+                  <div className="text-white mt-3 border-2 border-white border-dotted w-1/4 rounded-lg flex items-center justify-center py-1 font-semibold">
+                    {webinarLiveStatus}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col md:flex-row items-center">
+                <button
+                  className={`h-16 w-full md:w-36 text-white rounded-2xl mt-3 ${
+                    isWatchNowEnabled ? "bg-[#6a55ea]" : "bg-gray-500"
+                  }`}
+                  onClick={handleWatchNow}
+                  disabled={!isWatchNowEnabled}
+                >
+                  Watch Now
+                </button>
+                <button
+                  className="bg-white h-16 w-full md:w-16 text-black mx-0 md:mx-5 rounded-2xl mt-3 flex justify-center items-center"
+                  onClick={toggleFavorite}
+                >
+                  {isFavorite ? (
+                    <FaHeart className="w-6 h-6 text-red-500" />
+                  ) : (
+                    <FaRegHeart className="w-6 h-6" />
+                  )}
+                </button>
               </div>
             </div>
-          )}
-          <div className="mt-20 w-1/2">
-            <RatingsReviews type="webinar" key={refreshKey} className="z-20" />
           </div>
-          <div className="mt-10 w-2/3">
-            <Comments onCommentAdded={handleCommentAdded} type="webinar" />
-          </div>
-        </LoadingWrapper>
+        )}
+        <div className="mt-20 w-1/2">
+          <RatingsReviews type="webinar" key={refreshKey} className="z-20" />
+        </div>
+        <div className="mt-10 w-2/3">
+          <Comments onCommentAdded={handleCommentAdded} type="webinar" />
+        </div>
+      </LoadingWrapper>
     </div>
   );
 };
