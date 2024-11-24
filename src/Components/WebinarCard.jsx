@@ -49,21 +49,21 @@ const WebinarCard = ({
           style={{ height: cardHeight }}
         >
           <div
-            className={`relative w-full h-full z-10 transition-transform duration-300 ${
+            className={`relative w-full h-full z-10 transition-transform duration-300  ${
               isHovered ? "-translate-y-5" : ""
             }`}
           >
             <img
               src={thumbnail}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
 
           <div
-            className={`absolute bottom-0 w-full p-4 bg-[#0d0d0d] text-white transition-all duration-300 ${
+            className={`absolute bottom-0 w-full p-4 bg-[#0d0d0d] text-white transition-all duration-300 rounded-b-lg ${
               isHovered
-                ? "translate-y-24 opacity-100 z-50"
+                ? "translate-y-32 opacity-100 z-50"
                 : "translate-y-full opacity-0"
             }`}
           >
@@ -79,7 +79,7 @@ const WebinarCard = ({
               </button>
             </div>
             <h3 className="text-xl font-thin mb-2 opacity-50">
-            {date.split("T")[0] || null}
+            {date?.split("T")[0] || null}
             </h3>
             <h3 className="text-sm font-medium mb-2">{title}</h3>
             <div>

@@ -10,17 +10,16 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../Slice/AuthSlice";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import axiosInstance from "../lib/axiosInstance";
-import { HashLoader } from "react-spinners"; 
+import { HashLoader } from "react-spinners";
 import { toast } from "react-toastify";
-
 
 function SignInForm({ onClose, toggleSignUp }) {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,21 +35,24 @@ function SignInForm({ onClose, toggleSignUp }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
 
-    
     const { email, password } = credentials;
 
     try {
-      const response = await axiosInstance.post('/auth/login', { email, password });
+      const response = await axiosInstance.post("/auth/login", {
+        email,
+        password,
+      });
       const { token } = response.data;
 
-      
-      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
       Cookies.set("token", token, { expires: 7 });
 
       console.log(response.data.user, token);
-      dispatch(login({user: response.data.user, token: token}))
+      dispatch(login({ user: response.data.user, token: token }));
 
       if (response.data.user.role === "admin") {
         navigate("/");
@@ -59,11 +61,11 @@ function SignInForm({ onClose, toggleSignUp }) {
       }
       onClose();
     } catch (error) {
-      console.log(error.response.data.message)
-      toast.error(error?.response?.data?.message || 'Error Logging in')
+      console.log(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Error Logging in");
       console.error("Login error:", error.response?.data || error.message);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -75,18 +77,20 @@ function SignInForm({ onClose, toggleSignUp }) {
             <CloseIcon />
           </button>
         </div>
-        <h2 className="text-2xl font-semibold mx-10 my-5">Login</h2>
-        <p className="text-md font-normal mx-10 mb-5 opacity-60">
-          Login to access your account
-        </p>
-        
-        {loading ? ( 
+        <div className="w-full flex justify-center pb-5">
+          <img
+            src={`${process.env.PUBLIC_URL}/Images/Logo.png`}
+            alt="Cahero Legacy"
+            className="h-24"
+          />
+        </div>
+        {loading ? (
           <div className="flex justify-center items-center h-48">
             <HashLoader color="#6A55EA" loading={loading} size={40} />
           </div>
         ) : (
           <form onSubmit={handleLogin}>
-            <div className="mx-10 mb-5">
+            <div className="mx-10 mb-5 bg-[#292929]">
               <TextField
                 className="w-full"
                 id="email"
@@ -122,7 +126,7 @@ function SignInForm({ onClose, toggleSignUp }) {
             </div>
             <div className="mx-10">
               <TextField
-                className="w-full"
+                className="w-full bg-[#292929]"
                 id="password"
                 label="Password"
                 variant="outlined"
@@ -191,6 +195,17 @@ function SignInForm({ onClose, toggleSignUp }) {
                 Forgot Password
               </button>
             </div>
+            {/* <div className="flex justify-start ml-10 my-3">
+              <p className="text-[#313131] text-sm font-semibold">
+                Don't have an Account?{" "}
+                <button
+                  className="text-[#6A55EA] hover:text-[#5242b6] ease-in-out transition duration-300"
+                  onClick={toggleSignUp}
+                >
+                  Sign up
+                </button>
+              </p>
+            </div> */}
             <div className="mx-10 mt-5 mb-10">
               <button
                 className="bg-[#6a55ea] text-white rounded-lg py-2 w-full"
@@ -199,12 +214,10 @@ function SignInForm({ onClose, toggleSignUp }) {
                 Login
               </button>
             </div>
-            <div className="flex justify-center my-5">
-              <p className="text-[#313131] text-sm font-semibold">
-                Don't have an Account?{" "}
-                <button className="text-[#6A55EA] hover:text-[#5242b6] ease-in-out transition duration-300" onClick={toggleSignUp}>
-                  Sign up
-                </button>
+            <div className="flex justify-center mx-10">
+              <p className="text-xs w-72 text-center opacity-80">
+                Sign in is protected by Google reCAPTCHA to ensure you're not a
+                bot. Learn more.
               </p>
             </div>
           </form>

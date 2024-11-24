@@ -108,14 +108,14 @@ const MediaCard = ({
             <img
               src={thumbnail}
               alt={title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
 
           <div
-            className={`absolute bottom-0 w-full p-4 bg-[#0d0d0d] text-white transition-all duration-300 ${
+            className={`absolute bottom-0 w-full p-4 bg-[#0d0d0d] text-white transition-all duration-300 rounded-b-lg ${
               isHovered
-                ? "translate-y-24 opacity-100 z-50"
+                ? "translate-y-24 opacity-100 z-50 "
                 : "translate-y-full opacity-0"
             }`}
           >

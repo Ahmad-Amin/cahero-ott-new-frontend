@@ -116,10 +116,10 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
   return ReactDOM.createPortal(
     <div
       id="modal-overlay"
-      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-zinc-900 bg-opacity-80 flex items-center justify-center z-50"
       onClick={handleOverlayClick}
     >
-      <div className="bg-black rounded-lg shadow-lg overflow-hidden w-1/2 relative">
+      <div className="bg-black rounded-lg shadow-lg overflow-hidden w-1/2 relative ">
         <button
           className="absolute top-4 right-4 text-white text-2xl hover:text-gray-400 z-10"
           onClick={onClose}
@@ -190,7 +190,7 @@ const MediaModal = ({ id, onClose, axiosUrl }) => {
           </div>
           <div className="px-4 text-white">
             <h2 className="mt-2 text-2xl font-semibold">{data.title}</h2>
-            <p className="text-md opacity-60 line-clamp-3 text-ellipsis">
+            <p className="text-md opacity-60 line-clamp-3 text-ellipsis mb-10">
               {data.description}
             </p>
           </div>

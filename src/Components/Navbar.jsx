@@ -125,7 +125,6 @@ function Navbar() {
     };
   }, []);
 
-
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -135,126 +134,155 @@ function Navbar() {
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Left Section */}
         <div className="flex items-center space-x-8">
-  {/* Logo */}
-  <div className="flex items-center space-x-2">
-   <Link to={"/"}>
-   <img
-      src={`${process.env.PUBLIC_URL}/Images/Cahero Legacy.png`}
-      alt="Cahero Legacy"
-      className="h-16"
-    />
-   </Link>
-  </div>
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <Link to={"/"}>
+              <img
+                src={`${process.env.PUBLIC_URL}/Images/Logo.png`}
+                alt="Cahero Legacy"
+                className="h-16"
+              />
+            </Link>
+          </div>
 
-  {/* Navigation Links */}
-  <ul className="flex space-x-6">
-    <li>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          `font-medium ${isActive ? "text-white" : "text-gray-400"} hover:text-white`
-        }
-      >
-        Home
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/popular"
-        className={({ isActive }) =>
-          `font-medium ${isActive ? "text-white" : "text-gray-400"} hover:text-white`
-        }
-      >
-        Popular
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/webinars"
-        className={() =>
-          `font-medium ${
-            location.pathname.includes("/webinars") ? "text-white" : "text-gray-400"
-          } hover:text-white`
-        }
-      >
-        Webinars
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/books"
-        className={() =>
-          `font-medium ${
-            location.pathname.includes("/books") ? "text-white" : "text-gray-400"
-          } hover:text-white`
-        }
-      >
-        Books
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/documentaries"
-        className={() =>
-          `font-medium ${
-            location.pathname.includes("/documentaries") ? "text-white" : "text-gray-400"
-          } hover:text-white`
-        }
-      >
-        Documentaries
-      </NavLink>
-    </li>
-    <li>
-      <NavLink
-        to="/community"
-        className={() =>
-          `font-medium ${
-            location.pathname.includes("/community") ? "text-white" : "text-gray-400"
-          } hover:text-white`
-        }
-      >
-        Community
-      </NavLink>
-    </li>
-  </ul>
-</div>
-
+          {/* Navigation Links */}
+          <ul className="flex space-x-6">
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `font-medium ${
+                    isActive ? "text-white" : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/popular"
+                className={({ isActive }) =>
+                  `font-medium ${
+                    isActive ? "text-white" : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Popular
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/webinars"
+                className={() =>
+                  `font-medium ${
+                    location.pathname.includes("/webinars")
+                      ? "text-white"
+                      : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Webinars
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/books"
+                className={() =>
+                  `font-medium ${
+                    location.pathname.includes("/books")
+                      ? "text-white"
+                      : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Books
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/documentaries"
+                className={() =>
+                  `font-medium ${
+                    location.pathname.includes("/documentaries")
+                      ? "text-white"
+                      : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Documentaries
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/community"
+                className={() =>
+                  `font-medium ${
+                    location.pathname.includes("/community")
+                      ? "text-white"
+                      : "text-gray-400"
+                  } hover:text-white`
+                }
+              >
+                Community
+              </NavLink>
+            </li>
+          </ul>
+        </div>
 
         {/* Right Section */}
         <div className="flex items-center space-x-4">
           {currentUser ? (
             <>
               <div ref={dropdownRef}>
-                <button onClick={toggleDropdown} className="p-2 bg-[#1b1a1a] hover:bg-[#413e3e] text-white ease-in-out transition duration-300 rounded-lg">
+                <button
+                  onClick={toggleDropdown}
+                  className="p-2 bg-[#1b1a1a] hover:bg-[#413e3e] text-white ease-in-out transition duration-300 rounded-lg"
+                >
                   <NotificationsNoneIcon />
                 </button>
                 {isDropdownOpen && (
-            <div className="absolute right-56 top-full mt-3 bg-[#0d0d0d] text-white rounded-md shadow-lg z-30">
-              <div className="text-center py-2 font-bold border-b border-gray-600">Notifications</div>
-              {Array.isArray(notifications) && notifications.length > 0 ? (
-                <ul className="max-h-60 overflow-y-auto">
-                  {notifications.map((notification, index) => (
-                    <li key={index} className="flex items-center h-20 px-4 py-2 hover:bg-[#404041] cursor-pointer ease-in-out transition">
-                      <div className="flex flex-col justify-center flex-grow overflow-hidden">
-                        <div className="font-semibold">{notification.notificationType}</div>
-                        <div className="text-sm w-96 text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1">{notification.content}</div>
+                  <div className="absolute right-56 top-full mt-3 bg-[#0d0d0d] text-white rounded-md shadow-lg z-30">
+                    <div className="text-center py-2 font-bold border-b border-gray-600">
+                      Notifications
+                    </div>
+                    {Array.isArray(notifications) &&
+                    notifications.length > 0 ? (
+                      <ul className="max-h-60 overflow-y-auto">
+                        {notifications.map((notification, index) => (
+                          <li
+                            key={index}
+                            className="flex items-center h-20 px-4 py-2 hover:bg-[#404041] cursor-pointer ease-in-out transition"
+                          >
+                            <div className="flex flex-col justify-center flex-grow overflow-hidden">
+                              <div className="font-semibold">
+                                {notification.notificationType}
+                              </div>
+                              <div className="text-sm w-96 text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap line-clamp-1">
+                                {notification.content}
+                              </div>
+                            </div>
+                            <span
+                              className="ml-4 text-xs text-gray-400"
+                              style={{ width: "100px", textAlign: "center" }}
+                            >
+                              {notification.time}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="py-2 px-4 font-semibold text-lg text-white opacity-70">
+                        No notifications available
                       </div>
-                      <span className="ml-4 text-xs text-gray-400" style={{ width: "100px", textAlign: "center" }}>
-                        {notification.time}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="py-2 px-4 font-semibold text-lg text-white opacity-70">No notifications available</div>
-              )}
-              <Link to="/notifications">
-                <button className="flex justify-end w-full my-3 px-3 text-sm hover:font-semibold ease-in-out transition duration-300">
-                  View All
-                </button>
-              </Link>
-            </div>
-          )}
+                    )}
+                    <Link to="/notifications">
+                      <button className="flex justify-end w-full my-3 px-3 text-sm hover:font-semibold ease-in-out transition duration-300">
+                        View All
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
               <div
                 className="flex items-center space-x-2"

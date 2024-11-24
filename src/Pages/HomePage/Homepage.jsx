@@ -4,7 +4,7 @@ import MediaCarousel from "../../Components/Carousels/MediaCarousel";
 import NumberCarousel from "../../Components/Carousels/NumberCarousel";
 const Homepage = () => {
   return (
-    <div>
+    <div className="pb-20">
       <Banner />
       <NumberCarousel
         heading={"Top Documentaries for you"}
@@ -48,7 +48,7 @@ const Homepage = () => {
         cardheight={"300px"}
         axiosURL={"/books"}
         cardsSpace={40}
-        slide={6}
+        slide={5.5}
       />
     </div>
   );

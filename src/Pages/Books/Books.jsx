@@ -100,7 +100,7 @@ const Books = () => {
 
       {/* Books Section */}
       <LoadingWrapper loading={loading}>
-        <div className="grid grid-cols-6 gap-6 mt-6">
+        <div className="grid grid-cols-5 gap-6 mt-6">
           {books.length > 0 ? (
             books.map((media) => (
               <MediaCard

@@ -78,7 +78,7 @@ const Favorite = () => {
         return (
           <div className="grid grid-cols-4 gap-6 mt-10">
             {data
-              .filter((book) => book) // Ensure item is not null
+              .filter((book) => book) 
               .map((book) => (
                 <MediaCard
                   key={book.id}
@@ -102,7 +102,7 @@ const Favorite = () => {
         return (
           <div className="grid grid-cols-4 gap-6 mt-10">
             {data
-              .filter((document) => document) // Ensure item is not null
+              .filter((document) => document) 
               .map((document) => (
                 <MediaCard
                   key={document.id}
