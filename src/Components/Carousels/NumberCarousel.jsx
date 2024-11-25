@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axiosInstance from "../../lib/axiosInstance";
 import LoadingWrapper from "../../ui/LoadingWrapper";
+import "../../index.css";
 
 const NumberCarousel = ({
   heading,
@@ -52,7 +53,7 @@ const NumberCarousel = ({
           spaceBetween={cardsSpace || 40}
           slidesPerView={slides}
           navigation
-          pagination={{ clickable: true }}
+          pagination={{ clickable: true, el: ".custom-pagination" }}
           className="relative"
           autoplay={{
             delay: 3000,
@@ -84,6 +85,7 @@ const NumberCarousel = ({
               </div>
             </SwiperSlide>
           ))}
+          <div className="custom-pagination" />
         </Swiper>
       </div>
     </div>

@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axiosInstance from "../../lib/axiosInstance";
 import LoadingWrapper from "../../ui/LoadingWrapper";
+import "../../index.css";
 
 const MediaCarousel = ({
   heading,
@@ -14,7 +15,7 @@ const MediaCarousel = ({
   cardheight,
   axiosURL,
   cardsSpace,
-  slide
+  slide,
 }) => {
   const [mediaData, setMediaData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,7 +50,10 @@ const MediaCarousel = ({
           spaceBetween={cardsSpace}
           slidesPerView={slide}
           navigation
-          pagination={{ clickable: true }}
+          pagination={{
+            clickable: true,
+            el: ".custom-pagination",
+          }}
           className="relative overflow-visible"
           autoplay={{
             delay: 3000,
@@ -78,6 +82,7 @@ const MediaCarousel = ({
               </SwiperSlide>
             );
           })}
+          <div className="custom-pagination" />
         </Swiper>
       </LoadingWrapper>
     </div>
