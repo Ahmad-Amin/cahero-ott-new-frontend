@@ -119,3 +119,7 @@ html {
 .custom-pagination .swiper-pagination-bullet-active {
   background: #f59e0b; /* Highlighted active dot */
 }
+
+.swiper-container {
+  overflow: hidden !important; /* Ensures no scrollbar appears */
+}

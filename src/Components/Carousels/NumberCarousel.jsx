@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules"; // Import modules
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import MediaCard from "../MediaCard";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -49,22 +49,21 @@ const NumberCarousel = ({
 
       <div className="ml-20">
         <Swiper
-          modules={[Navigation, Pagination]}
+          modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={cardsSpace || 40}
           slidesPerView={slides}
           navigation
           pagination={{ clickable: true, el: ".custom-pagination" }}
-          className="relative"
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
           }}
+          className="relative overflow-hidden"
         >
           {mediaData.map((media, index) => (
             <SwiperSlide key={media.id}>
               <div className="relative">
-                {/* Number Overlay */}
-                <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 text-[11rem] font-bold text-white text-outline opacity-30 ">
+                <div className="absolute -left-20 top-1/2 transform -translate-y-1/2 text-[11rem] font-bold text-white text-outline opacity-30">
                   {index + 1}
                 </div>
                 <MediaCard

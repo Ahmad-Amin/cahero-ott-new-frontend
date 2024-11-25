@@ -4,7 +4,7 @@ import MediaCarousel from "../../Components/Carousels/MediaCarousel";
 import NumberCarousel from "../../Components/Carousels/NumberCarousel";
 const Homepage = () => {
   return (
-    <div className="pb-20">
+    <div className="pb-20 overflow-hidden">
       <Banner />
       <NumberCarousel
         heading={"Top Documentaries for you"}

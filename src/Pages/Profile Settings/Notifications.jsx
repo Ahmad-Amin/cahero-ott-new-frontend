@@ -59,7 +59,7 @@ const NotificationsUser = () => {
   return (
     <SidebarLayout>
       <LoadingWrapper loading={loading}>
-        <div className="p-6 text-white">
+        <div className="p-6 text-white mb-10">
           {/* Header Section */}
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold">Notification</h1>
@@ -142,9 +142,9 @@ const NotificationsUser = () => {
             ))}
 
             {/* Pagination */}
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-6 items-center">
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                className="px-4 py-2 bg-[#5242b6] text-white rounded-md disabled:opacity-50"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(currentPage - 1)}
               >
@@ -154,7 +154,7 @@ const NotificationsUser = () => {
                 {currentPage} of {totalPages}
               </span>
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+                className="px-4 py-2 bg-[#5242b6] text-white rounded-md disabled:opacity-50"
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(currentPage + 1)}
               >

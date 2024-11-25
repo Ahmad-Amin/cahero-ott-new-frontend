@@ -41,7 +41,7 @@ const MediaCarousel = ({
   }, [axiosURL]);
 
   return (
-    <div className="p-10">
+    <div className="p-10 ">
       <LoadingWrapper loading={loading}>
         <h1 className="text-white font-bold text-xl mb-2">{heading}</h1>
 
@@ -54,7 +54,7 @@ const MediaCarousel = ({
             clickable: true,
             el: ".custom-pagination",
           }}
-          className="relative overflow-visible"
+          className="relative overflow-hidden"
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
