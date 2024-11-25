@@ -25,10 +25,10 @@ const SidebarLayout = ({ children }) => {
   return (
     <div className="flex h-screen mt-20">
       {/* Sidebar */}
-      <div className="w-64 bg-[#0e0e0e] text-white flex flex-col py-6 m-5 px-3 rounded-lg">
+      <div className="w-auto bg-[#0e0e0e] text-white flex flex-col py-6 m-5 px-3 rounded-lg">
         {/* Profile Section */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="w-auto h-auto bg-purple-500 flex items-center justify-center rounded-full text-lg font-bold overflow-hidden">
+        <div className="flex flex-row items-center gap-4 mb-8">
+          <div className="w-10 h-10 bg-purple-500 flex items-center justify-center rounded-full text-lg font-semibold overflow-hidden">
             {profileImage ? (
               <img
                 src={profileImage}
