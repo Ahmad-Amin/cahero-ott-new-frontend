@@ -34,7 +34,28 @@ const Community = () => {
   const [isMembersVisible, setIsMembersVisible] = useState(false);
   const [openComments, setOpenComments] = useState({});
   const dropdownRef = useRef(null);
+  const [openReply, setOpenReply] = useState({});
+  const [replyText, setReplyText] = useState({});
 
+  const toggleReply = (commentId) => {
+    setOpenReply((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
+  const addReplyToComment = (postId, commentId) => {
+    // Logic to add reply to the comment
+    console.log("Reply:", replyText[commentId]);
+    console.log("Post ID:", postId, "Comment ID:", commentId);
+
+    // Clear the reply text and close the reply box
+    setReplyText((prev) => ({
+      ...prev,
+      [commentId]: "",
+    }));
+    toggleReply(commentId);
+  };
   const fetchAllUsers = async () => {
     try {
       setFetchingUsers(true);
@@ -164,7 +185,6 @@ const Community = () => {
     };
   }, [isMembersVisible]);
 
-
   const toggleComments = (postId) => {
     setOpenComments((prevState) => ({
       ...prevState,
@@ -184,7 +204,7 @@ const Community = () => {
               Community
             </p>
             <button
-              className="bg-[#1b1a1a] hover:bg-[#413e3e] transition duration-300 w-auto px-2 h-9 text-white font-semibold mr-5 rounded-lg"
+              className="bg-[#1b1a1a] hover:bg-[#413e3e] transition duration-300 w-auto pr-1 pl-3 h-9 text-white font-semibold mr-5 rounded-lg"
               onClick={toggleMembersDropdown}
             >
               {isMembersVisible ? (
@@ -203,180 +223,221 @@ const Community = () => {
             >
               Create
             </button>
-            
           </div>
 
           <div className="flex mt-5">
             <div className="flex flex-col mx-5 space-y-5 w-11/12 z-10">
               {communityPosts.map((post) => (
                 <div
-                key={post.id}
-                className="bg-[#101011] w-full mx-8 rounded-lg border-2 border-[#404041]"
-              >
-                <div>
-                  <div className="flex flex-row items-center bg-transparent w-full h-16 mt-2 border-b-2 border-[#232323]">
-                    <div className="w-10 h-10 rounded-full overflow-hidden mx-5">
-                      <img
-                        src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
-                        alt=""
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex flex-row flex-1 items-center justify-between">
-                      <div className="flex-1">
-                        <h2 className="text-[#b1b1b1] font-semibold">
-                          {post.createdBy?.firstName +
-                            " " +
-                            post.createdBy?.lastName}
-                        </h2>
-                        <p className="text-xs text-[#b1b1b1]">
-                          {post.createdBy.email}
-                        </p>
+                  key={post.id}
+                  className="bg-[#101011] w-full mx-8 rounded-lg border-2 border-[#404041]"
+                >
+                  <div>
+                    <div className="flex flex-row items-center bg-transparent w-full h-16 mt-2 border-b-2 border-[#232323]">
+                      <div className="w-10 h-10 rounded-full overflow-hidden mx-5">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      {post.createdBy.id === currentUser.id && (
-                        <div className=" pr-3">
-                          <Trash2Icon
-                            onClick={() => handleDeletePost(post.id)}
-                            className="cursor-pointer text-red-700"
+                      <div className="flex flex-row flex-1 items-center justify-between">
+                        <div className="flex-1">
+                          <h2 className="text-[#b1b1b1] font-semibold">
+                            {post.createdBy?.firstName +
+                              " " +
+                              post.createdBy?.lastName}
+                          </h2>
+                          <p className="text-xs text-[#b1b1b1]">
+                            {post.createdBy.email}
+                          </p>
+                        </div>
+                        {post.createdBy.id === currentUser.id && (
+                          <div className="pr-3">
+                            <Trash2Icon
+                              onClick={() => handleDeletePost(post.id)}
+                              className="cursor-pointer text-red-700"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="border-b-2 border-[#232323]">
+                      <p className="text-white m-8 font-light ">
+                        {post.content} {post?.hashtags}
+                      </p>
+                      {post.type === "image" && post.assetUrl && (
+                        <div className="w-full h-[500px] overflow-hidden px-8 my-8">
+                          <img
+                            src={post.assetUrl}
+                            alt=""
+                            className="w-full h-full rounded-lg object-contain"
                           />
                         </div>
                       )}
-                    </div>
-                  </div>
-                  <div className="border-b-2 border-[#232323]">
-                    <p className="text-white m-8 font-light ">
-                      {post.content} {post?.hashtags}
-                    </p>
-                    {post.type === "image" && post.assetUrl && (
-                      <div className=" w-full h-[500px] overflow-hidden px-8 my-8">
-                        <img
-                          src={post.assetUrl}
-                          alt=""
-                          className="w-full h-full rounded-lg object-contain"
-                        />
-                      </div>
-                    )}
-                    {post.type === "video" && post.assetUrl && (
-                      <div className="w-full h-[500px] overflow-hidden px-8 my-8">
-                        <video
-                          controls
-                          src={post.assetUrl}
-                          alt=""
-                          className="w-full h-full rounded-lg object-center"
-                        />
-                      </div>
-                    )}
-                    {post.type === "document" && post.assetUrl && (
-                      <div className="w-full px-8 my-8">
-                        <PDFViewer link={post.assetUrl} />
-                      </div>
-                    )}
-                    <div className="flex flex-row my-8">
-                      <div
-                        className="flex flex-row cursor-pointer"
-                        onClick={() => likeThePost(post.id)}
-                      >
-                        {post.likedBy?.includes(currentUser.id) ? (
-                          <ThumbUpAltIcon className="text-white ml-8 mr-3" />
-                        ) : (
-                          <ThumbsUpIcon className="text-white ml-8 mr-3" />
-                        )}
-          
-                        <p className="text-white">{post.likes || 0} Likes</p>
-                      </div>
-                      <div
-                        className="flex flex-row cursor-pointer"
-                        onClick={() => toggleComments(post.id)}
-                      >
-                        <CommentIcon className="text-white ml-8 mr-3" />
-                        <p className="text-white">
-                          {post.comments.length || 0} Comments
-                        </p>
-                      </div>
-                      <div className="flex flex-row">
-                        <ShareIcon className="text-white ml-8 mr-3" />
-                        <p className="text-white">{post.shares || 0} Shares</p>
-                      </div>
-                    </div>
-                  </div>
-                  {openComments[post.id] && (
-                    <>
-                      <div className="flex flex-row">
-                        <div className="flex-1">
-                          <div className="flex items-center m-5">
-                            <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
-                              <img
-                                src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
-                                alt=""
-                                className="w-full h-full object-cover"
-                              />
-                            </div>
-                            <textarea
-                              value={commentText[post.id] || ""}
-                              onChange={(e) =>
-                                setCommentText({
-                                  ...commentText,
-                                  [post.id]: e.target.value,
-                                })
-                              }
-                              type="text"
-                              className="bg-black h-9 text-white rounded-full w-full border border-[#b1b1b1] resize-none outline-none pt-1 pl-3"
-                              placeholder="Write your Comment.."
-                            />
-                          </div>
+                      {post.type === "video" && post.assetUrl && (
+                        <div className="w-full h-[500px] overflow-hidden px-8 my-8">
+                          <video
+                            controls
+                            src={post.assetUrl}
+                            className="w-full h-full rounded-lg object-center"
+                          />
                         </div>
-                        <div className="flex flex-row m-5 space-x-3">
-                          <div
-                            onClick={() => addCommentToPost(post.id)}
-                            className="w-10 h-10 rounded-full border border-[#6a55ea] flex items-center justify-center cursor-pointer"
-                          >
-                            <SendIcon className="text-[#6a55ea]" />
-                          </div>
+                      )}
+                      {post.type === "document" && post.assetUrl && (
+                        <div className="w-full px-8 my-8">
+                          <PDFViewer link={post.assetUrl} />
+                        </div>
+                      )}
+                      <div className="flex flex-row my-8">
+                        <div
+                          className="flex flex-row cursor-pointer"
+                          onClick={() => likeThePost(post.id)}
+                        >
+                          {post.likedBy?.includes(currentUser.id) ? (
+                            <ThumbUpAltIcon className="text-white ml-8 mr-3" />
+                          ) : (
+                            <ThumbsUpIcon className="text-white ml-8 mr-3" />
+                          )}
+                          <p className="text-white">{post.likes || 0} Likes</p>
+                        </div>
+                        <div
+                          className="flex flex-row cursor-pointer"
+                          onClick={() => toggleComments(post.id)}
+                        >
+                          <CommentIcon className="text-white ml-8 mr-3" />
+                          <p className="text-white">
+                            {post.comments.length || 0} Comments
+                          </p>
+                        </div>
+                        <div className="flex flex-row">
+                          <ShareIcon className="text-white ml-8 mr-3" />
+                          <p className="text-white">
+                            {post.shares || 0} Shares
+                          </p>
                         </div>
                       </div>
-                      <div className="px-8 flex flex-col gap-5 my-5">
-                        {post.comments.map((comment) => (
-                          <div key={comment.id}>
-                            <div className="flex flex-row gap-3 items-center">
-                              <div className="w-10 h-10 rounded-full overflow-hidden">
+                    </div>
+                    {openComments[post.id] && (
+                      <>
+                        <div className="flex flex-row">
+                          <div className="flex-1">
+                            <div className="flex items-center m-5">
+                              <div className="w-10 h-10 rounded-full overflow-hidden mr-3">
                                 <img
-                                  src={comment.user.profileImageUrl}
-                                  alt="Profile"
-                                  className="w-full h-full object-center"
+                                  src={`${process.env.PUBLIC_URL}/images/Rectangle.png`}
+                                  alt=""
+                                  className="w-full h-full object-cover"
                                 />
                               </div>
-                              <div className="flex flex-row justify-between items-center flex-1">
-                                <div className="text-white text-xs">
-                                  <p className="text-sm">
-                                    {comment.user.firstName +
-                                      " " +
-                                      comment.user.lastName}
-                                  </p>
-                                  <p className="text-slate-300">
-                                    {comment.user.email}
-                                  </p>
-                                </div>
-                                {comment.user.email === currentUser.email && (
-                                  <div className="text-red-700">
-                                    <DeleteOutlineIcon
-                                      className="text-[#e53939] hover:text-[#b22c2c] cursor-pointer"
-                                      onClick={() =>
-                                        handleDeleteMyComment(post.id, comment.id)
-                                      }
-                                    />
-                                  </div>
-                                )}
-                              </div>
+                              <textarea
+                                value={commentText[post.id] || ""}
+                                onChange={(e) =>
+                                  setCommentText({
+                                    ...commentText,
+                                    [post.id]: e.target.value,
+                                  })
+                                }
+                                type="text"
+                                className="bg-black h-9 text-white rounded-full w-full border border-[#b1b1b1] resize-none outline-none pt-1 pl-3"
+                                placeholder="Write your Comment.."
+                              />
                             </div>
-                            <p className="text-white mt-4">{comment.comment}</p>
-                            <div className="border-b border-gray-600 mt-2"></div>
                           </div>
-                        ))}
-                      </div>
-                    </>
-                  )}
+                          <div className="flex flex-row m-5 space-x-3">
+                            <div
+                              onClick={() => addCommentToPost(post.id)}
+                              className="w-10 h-10 rounded-full border border-[#6a55ea] flex items-center justify-center cursor-pointer"
+                            >
+                              <SendIcon className="text-[#6a55ea]" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="px-8 flex flex-col gap-5 my-5">
+                          {post.comments.map((comment) => (
+                            <div key={comment.id}>
+                              <div className="flex flex-row gap-3 items-center">
+                                <div className="w-10 h-10 rounded-full overflow-hidden">
+                                  <img
+                                    src={comment.user.profileImageUrl}
+                                    alt="Profile"
+                                    className="w-full h-full object-center"
+                                  />
+                                </div>
+                                <div className="flex flex-row justify-between items-center flex-1">
+                                  <div className="text-white text-xs">
+                                    <p className="text-sm">
+                                      {comment.user.firstName +
+                                        " " +
+                                        comment.user.lastName}
+                                    </p>
+                                    <p className="text-slate-300">
+                                      {comment.user.email}
+                                    </p>
+                                  </div>
+                                  {comment.user.email === currentUser.email && (
+                                    <div className="text-red-700">
+                                      <DeleteOutlineIcon
+                                        className="text-[#e53939] hover:text-[#b22c2c] cursor-pointer"
+                                        onClick={() =>
+                                          handleDeleteMyComment(
+                                            post.id,
+                                            comment.id
+                                          )
+                                        }
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <p className="text-white mt-4">
+                                {comment.comment}
+                              </p>
+                              <div className="flex items-center gap-3 mt-2">
+                                <button
+                                  className="text-blue-500 text-sm cursor-pointer hover:underline"
+                                  onClick={() => toggleReply(comment.id)}
+                                >
+                                  Reply
+                                </button>
+                              </div>
+                              {openReply[comment.id] && (
+                                <div className="flex flex-row mt-3 items-center">
+                                  <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                                    <span className="text-white font-bold">
+                                      {currentUser?.firstName?.[0].toUpperCase()}
+                                    </span>
+                                  </div>
+                                  <textarea
+                                    value={replyText[comment.id] || ""}
+                                    onChange={(e) =>
+                                      setReplyText({
+                                        ...replyText,
+                                        [comment.id]: e.target.value,
+                                      })
+                                    }
+                                    type="text"
+                                    className="bg-black h-9 text-white rounded-full w-full border border-[#b1b1b1] resize-none outline-none pt-1 pl-3"
+                                    placeholder="Write your Reply.."
+                                  />
+                                  <div
+                                    onClick={() =>
+                                      addReplyToComment(post.id, comment.id)
+                                    }
+                                    className="w-10 h-10 rounded-full border border-[#6a55ea] flex items-center justify-center cursor-pointer ml-3"
+                                  >
+                                    <SendIcon className="text-[#6a55ea]" />
+                                  </div>
+                                </div>
+                              )}
+                              <div className="border-b border-gray-600 mt-2"></div>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
               ))}
             </div>
 
@@ -401,7 +462,7 @@ const Community = () => {
                       className="flex flex-row items-center border-b border-[#232323] py-2"
                     >
                       <div className="w-10 h-10 rounded-full overflow-hidden mx-3">
-                        <img
+                        {member.profileImageUrl ? (<img
                           src={
                             member.profileImageUrl
                               ? member.profileImageUrl
@@ -409,7 +470,12 @@ const Community = () => {
                           }
                           alt=""
                           className="w-full h-full object-cover"
-                        />
+                        />) : (<div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                          <span className="text-white font-bold">
+                            {member?.firstName?.[0].toUpperCase()}
+                          </span>
+                        </div>)
+                        }
                       </div>
                       <div>
                         <h2 className="text-[#b1b1b1] font-semibold">

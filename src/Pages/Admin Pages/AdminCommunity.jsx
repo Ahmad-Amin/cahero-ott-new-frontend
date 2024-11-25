@@ -39,7 +39,28 @@ const AdminCommunity = () => {
   const [users, setUsers] = useState([]);
   const [isViewMoreModalOpen, setIsViewMoreModalOpen] = useState(false);
   const [editData, setEditData] = useState(null);
+  const [openReply, setOpenReply] = useState({});
+  const [replyText, setReplyText] = useState({});
 
+  const toggleReply = (commentId) => {
+    setOpenReply((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+  };
+
+  const addReplyToComment = (postId, commentId) => {
+    // Logic to add reply to the comment
+    console.log("Reply:", replyText[commentId]);
+    console.log("Post ID:", postId, "Comment ID:", commentId);
+
+    // Clear the reply text and close the reply box
+    setReplyText((prev) => ({
+      ...prev,
+      [commentId]: "",
+    }));
+    toggleReply(commentId);
+  };
   const openViewMoreModal = (postId) => {
     setIsViewMoreModalOpen(postId);
   };
@@ -243,8 +264,6 @@ const AdminCommunity = () => {
                               className="text-white cursor-pointer"
                               onClick={() => openViewMoreModal(post.id)}
                             />
-
-                            {/* Modal per post instance */}
                             <ViewMoreModal
                               open={isViewMoreModalOpen === post.id}
                               onClose={closeViewMoreModal}
@@ -310,7 +329,6 @@ const AdminCommunity = () => {
                         </div>
                       </div>
                     </div>
-                    {/* Comment Box */}
                     <div className="flex flex-row">
                       <div className="flex-1">
                         <div className="flex items-center m-5">
@@ -344,7 +362,6 @@ const AdminCommunity = () => {
                         </div>
                       </div>
                     </div>
-                    {/* Comments List */}
                     <div className="px-8 flex flex-col gap-5 my-5">
                       {post.comments.map((comment) => (
                         <div key={comment.id}>
@@ -380,6 +397,43 @@ const AdminCommunity = () => {
                             </div>
                           </div>
                           <p className="text-white mt-4">{comment.comment}</p>
+                          <div className="flex items-center gap-3 mt-2">
+                            <button
+                              className="text-blue-500 text-sm cursor-pointer hover:underline"
+                              onClick={() => toggleReply(comment.id)}
+                            >
+                              Reply
+                            </button>
+                          </div>
+                          {openReply[comment.id] && (
+                            <div className="flex flex-row mt-3 items-center">
+                              <div className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                                <span className="text-white font-bold">
+                                  {currentUser?.firstName?.[0].toUpperCase()}
+                                </span>
+                              </div>
+                              <textarea
+                                value={replyText[comment.id] || ""}
+                                onChange={(e) =>
+                                  setReplyText({
+                                    ...replyText,
+                                    [comment.id]: e.target.value,
+                                  })
+                                }
+                                type="text"
+                                className="bg-black h-9 text-white rounded-full w-full border border-[#b1b1b1] resize-none outline-none pt-1 pl-3"
+                                placeholder="Write your Reply.."
+                              />
+                              <div
+                                onClick={() =>
+                                  addReplyToComment(post.id, comment.id)
+                                }
+                                className="w-10 h-10 rounded-full border border-[#6a55ea] flex items-center justify-center cursor-pointer ml-3"
+                              >
+                                <SendIcon className="text-[#6a55ea]" />
+                              </div>
+                            </div>
+                          )}
                           <div className="border-b border-gray-600 mt-2"></div>
                         </div>
                       ))}
