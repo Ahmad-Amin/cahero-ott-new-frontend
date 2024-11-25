@@ -125,7 +125,7 @@ const AudioPlayer = ({ playing = false }) => {
 
   return (
     <div
-      style={{ zIndex: 2, width: "83.844%" }}
+      style={{ zIndex: 2, width: "100%" }}
       className="fixed bottom-0 left-280"
     >
       <div

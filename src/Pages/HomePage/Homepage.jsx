@@ -40,7 +40,7 @@ const Homepage = () => {
         height="300px"
         cardheight="300px"
         cardsSpace={90}
-        slides={5}
+        slides={4.5}
       />
       <MediaCarousel
         heading={"Latest Books"}

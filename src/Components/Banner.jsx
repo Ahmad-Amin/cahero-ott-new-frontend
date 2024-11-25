@@ -43,7 +43,7 @@ function Banner() {
               `${process.env.PUBLIC_URL}/images/Rectangle.png`
             }
             alt="Webinar Banner"
-            className="w-full h-[80vh] md:h-[75vh] lg:h-[75vh] xl:h-[75vh] opacity-50 object-cover"
+            className="w-full h-[80vh] md:h-[75vh] lg:h-[75vh] xl:h-[75vh] opacity-40 object-cover"
           />
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 mb-32 p-4 ml-12 text-left w-1/2">
