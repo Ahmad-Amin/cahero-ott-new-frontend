@@ -186,10 +186,10 @@ const BookDetails = () => {
                     <FiPlayCircle />
                     Play Audio
                   </Button>
-                  <Link to={`/all-books/${bookId}/read-book`}>
+                  <Link to={`/all-books/${bookId}/books-read`}>
                     <Button
                       variant="outlined"
-                      onClick={() => navigate("/read-book")} // Navigate to /read-book on button click
+                      // onClick={() => navigate("/read-book")} // Navigate to /read-book on button click
                       sx={{
                         borderColor: "white", // White border
                         color: "white", // White text

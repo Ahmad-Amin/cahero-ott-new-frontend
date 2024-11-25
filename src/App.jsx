@@ -51,6 +51,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditNotifications from "./Pages/Admin Pages/EditNotifications";
 import AdminCommunity from "./Pages/Admin Pages/AdminCommunity";
 import StreamPage from "./Pages/stream/StreamPage"
+import ReadBooks from './Pages/Books/ReadBooks';
 
 const App = () => {
   return (
@@ -64,6 +65,7 @@ const App = () => {
           <Route path="/community" element={<UserProtectedRoute><Community /></UserProtectedRoute>} />
           <Route path="/webinars" element={<UserProtectedRoute><Webinars /></UserProtectedRoute>} />
           <Route path="/books" element={<UserProtectedRoute><Books /></UserProtectedRoute>} />
+          <Route path="/all-books/:id/books-read" element={<UserProtectedRoute><ReadBooks /></UserProtectedRoute>} />
           <Route path="/documentaries" element={<UserProtectedRoute><Documentaries /></UserProtectedRoute>} />
           <Route path="/popular" element={<UserProtectedRoute><Popular /></UserProtectedRoute>} />
           <Route path="/profile-settings" element={<UserProtectedRoute><ProfileSetting /></UserProtectedRoute>} />

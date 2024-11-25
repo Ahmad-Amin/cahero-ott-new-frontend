@@ -145,7 +145,7 @@ const WebinarDetails = () => {
                   `${process.env.PUBLIC_URL}/images/Rectangle1.png`
                 }
                 alt=""
-                className="w-full rounded-xl md:w-[328px] h-[296px]"
+                className="w-full rounded-xl md:w-[328px] h-[296px] object-cover"
               />
             </div>
             <div className="mt-10 mx-5 w-full lg:w-2/4 ">
