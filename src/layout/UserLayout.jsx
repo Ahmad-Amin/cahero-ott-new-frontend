@@ -6,7 +6,10 @@ const UserLayout = ({ children }) => {
   const location = useLocation();
 
   // Check if the current path matches "/documentaries/details/:id"
-  const hideNavbar = location.pathname.startsWith("/documentaries/details/");
+  const hideNavbar =
+  location.pathname.startsWith("/documentaries/details/") ||
+  location.pathname.startsWith("/dashboard/") ||
+  location.pathname === "/mobile";
 
   return (
     <div className="min-h-screen flex flex-col">

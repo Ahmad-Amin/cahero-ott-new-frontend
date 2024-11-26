@@ -105,12 +105,16 @@ html {
 
 .custom-pagination {
   position: absolute;
-  top: 0;
+  top: 10px !important; 
   right: 10px;
   z-index: 10;
   display: flex;
   justify-content: flex-end;
   gap: 5px;
+}
+.swiper-horizontal > .swiper-pagination-bullets {
+  top: unset !important; /* Override the default top property */
+  bottom: unset !important; /* Remove bottom alignment */
 }
 .custom-pagination .swiper-pagination-bullet {
   background: #fff; /* White dots */

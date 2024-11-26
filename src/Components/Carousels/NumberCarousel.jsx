@@ -8,6 +8,8 @@ import "swiper/css/pagination";
 import axiosInstance from "../../lib/axiosInstance";
 import LoadingWrapper from "../../ui/LoadingWrapper";
 import "../../index.css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 const NumberCarousel = ({
   heading,
@@ -54,10 +56,10 @@ const NumberCarousel = ({
           slidesPerView={slides}
           navigation
           pagination={{ clickable: true, el: ".custom-pagination" }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 3000,
+          //   disableOnInteraction: false,
+          // }}
           className="relative overflow-hidden"
         >
           {mediaData.map((media, index) => (
@@ -84,7 +86,7 @@ const NumberCarousel = ({
               </div>
             </SwiperSlide>
           ))}
-          <div className="custom-pagination" />
+          <div className="custom-pagination"></div>
         </Swiper>
       </div>
     </div>

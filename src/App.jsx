@@ -2,8 +2,8 @@
 import 'primereact/resources/themes/lara-light-indigo/theme.css'; // Theme CSS
 import 'primereact/resources/primereact.min.css'; // PrimeReact core styles
 import 'primeicons/primeicons.css'; // PrimeIcons styles
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate  } from "react-router-dom";
 import UserLayout from "./layout/UserLayout";
 import Homepage from "./Pages/HomePage/Homepage";
 import { Provider } from "react-redux";
@@ -52,16 +52,33 @@ import EditNotifications from "./Pages/Admin Pages/EditNotifications";
 import AdminCommunity from "./Pages/Admin Pages/AdminCommunity";
 import StreamPage from "./Pages/stream/StreamPage"
 import ReadBooks from './Pages/Books/ReadBooks';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import MobilePage from "./Pages/Mobile Page/MobilePage"
 
 const App = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <Provider store={store}>
+    isMobile ? <MobilePage /> : (
+      <Provider store={store}>
     <Router>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false}/>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false}/>
       <UserLayout>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          
+
+
           <Route path="/community" element={<UserProtectedRoute><Community /></UserProtectedRoute>} />
           <Route path="/webinars" element={<UserProtectedRoute><Webinars /></UserProtectedRoute>} />
           <Route path="/books" element={<UserProtectedRoute><Books /></UserProtectedRoute>} />
@@ -153,6 +170,7 @@ const App = () => {
       </UserLayout>
     </Router>
     </Provider>
+    )
   );
 };
 
