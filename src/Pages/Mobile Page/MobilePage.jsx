@@ -3,7 +3,7 @@ import React from "react";
 const MobilePage = () => {
   return (
     <div className="bg-black text-white min-h-screen flex justify-center items-center overflow-hidden">
-      <div className="w-full h-full flex flex-col items-center bg-black">
+      <div className="w-full h-screen flex flex-col items-center bg-black">
         {/* Header */}
         <header className="w-full flex justify-between items-center px-4 py-3">
           <h1 className="text-lg sm:text-xl font-bold">CAHERO</h1>
@@ -11,7 +11,7 @@ const MobilePage = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex flex-col items-center text-center mt-4 sm:mt-6 px-4">
+        <main className="flex flex-col h-full items-center text-center mt-4 sm:mt-6 w-full">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
             Sed Imperdiet Enim Ii <br />
             Vitae <span className="text-purple-500">Viverra Justo</span>
@@ -42,32 +42,30 @@ const MobilePage = () => {
           </div>
 
           {/* Images Section */}
-          <div className="relative mt-6 sm:mt-10 flex items-center justify-center w-full min-h-[400px] sm:min-h-[500px]">
-            {/* Purple Background Circle */}
-            <div className="absolute inset-0 bg-purple-600 w-60 sm:w-80 h-60 sm:h-80 rounded-full -z-10"></div>
+          <div className="relative mt-6 sm:mt-10 flex items-center justify-center w-full min-h-[400px] h-full">
 
             {/* Background Images */}
             <img
-              src={`${process.env.PUBLIC_URL}/Images/Bg1.png`}
+              src={`/Images/bg1.png`}
               alt="bg 1"
-              className="absolute bottom-0 w-full max-w-sm sm:max-w-md"
+              className="absolute bottom-0 w-full"
             />
             <img
-              src={`${process.env.PUBLIC_URL}/Images/Bg2.png`}
+              src={`/Images/bg2.png`}
               alt="bg 2"
-              className="absolute bottom-0 w-full max-w-sm sm:max-w-md"
+              className="absolute bottom-0 w-full"
             />
 
             {/* Phones */}
             <img
-              src={`${process.env.PUBLIC_URL}/Images/mob2.png`}
+              src={`/Images/mob2.png`}
               alt="Phone 1"
-              className="w-auto h-48 sm:h-72 z-10"
+              className="absolute w-[350px] left-0 z-10"
             />
             <img
-              src={`${process.env.PUBLIC_URL}/Images/mob1.png`}
+              src={`/Images/mob1.png`}
               alt="Phone 2"
-              className="w-auto h-48 sm:h-72 rotate-6 -translate-x-28 sm:-translate-x-56 translate-y-8 sm:translate-y-16 z-20"
+              className="absolute -right-20 w-[350px] rotate-6 -translate-x-28 sm:-translate-x-56 translate-y-8 sm:translate-y-16 z-20"
             />
           </div>
         </main>
