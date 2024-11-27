@@ -5,24 +5,24 @@ const MobilePage = () => {
     <div className="bg-black text-white min-h-screen flex justify-center items-center overflow-hidden">
       <div className="w-full h-screen flex flex-col items-center bg-black">
         {/* Header */}
-        <header className="w-full flex justify-between items-center px-4 py-3">
-          <h1 className="text-lg sm:text-xl font-bold">CAHERO</h1>
-          <div className="text-xl sm:text-2xl">≡</div>
+        <header className="w-full flex justify-center items-center px-4 py-3">
+          <img src="/Images/Logo.png" alt="Logo" className="h-16 sm:h-20" />
         </header>
 
         {/* Main Content */}
-        <main className="flex flex-col h-full items-center text-center mt-4 sm:mt-6 w-full">
+        <main className="flex flex-col h-full items-center text-center mt-2 w-full">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
-            Sed Imperdiet Enim Ii <br />
-            Vitae <span className="text-purple-500">Viverra Justo</span>
+            Get <span className="text-purple-500">Alfonso Cahero</span> on{" "}
+            <br />
+            Your Mobile
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-400 mt-3 sm:mt-4">
-            Nam sollicitudin nunc, cursus eros vulputate sed. <br />
-            Vestibulum sit amet tortor sit amet libero lobortis.
+          <p className="text-sm sm:text-base md:text-lg text-gray-400 mt-3 sm:mt-4 w-10/12">
+            Download our app to experience all the features and enjoy seamless
+            access anytime, anywhere
           </p>
 
           {/* Buttons */}
-          <div className="flex flex-wrap gap-3 mt-4 sm:mt-6">
+          <div className="flex flex-wrap gap-3 mt-4 sm:mt-6 z-20">
             <button className="bg-white text-black px-3 sm:px-4 py-2 rounded-lg shadow-lg flex items-center text-sm sm:text-base">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
@@ -42,30 +42,24 @@ const MobilePage = () => {
           </div>
 
           {/* Images Section */}
-          <div className="relative mt-6 sm:mt-10 flex items-center justify-center w-full min-h-[400px] h-full">
-
+          <div className="relative mt-6 sm:mt-10 flex items-center justify-center w-full h-full">
             {/* Background Images */}
             <img
               src={`/Images/bg1.png`}
               alt="bg 1"
-              className="absolute bottom-0 w-full"
+              className="absolute bottom-0 w-full sm:-bottom-72"
             />
             <img
               src={`/Images/bg2.png`}
               alt="bg 2"
-              className="absolute bottom-0 w-full"
+              className="absolute bottom-0 w-full sm:-bottom-72"
             />
 
             {/* Phones */}
             <img
-              src={`/Images/mob2.png`}
+              src={`/Images/mobile-group.png`}
               alt="Phone 1"
-              className="absolute w-[350px] left-0 z-10"
-            />
-            <img
-              src={`/Images/mob1.png`}
-              alt="Phone 2"
-              className="absolute -right-20 w-[350px] rotate-6 -translate-x-28 sm:-translate-x-56 translate-y-8 sm:translate-y-16 z-20"
+              className="absolute w-[350px] left-1/2 transform -translate-x-1/2 z-10"
             />
           </div>
         </main>
