@@ -37,18 +37,16 @@ const Homepage = () => {
       <NumberCarousel
         heading={"Recommended Books"}
         axiosURL={"/books"}
-        height="300px"
-        cardheight="300px"
+        height="350px"
+        cardheight="200px"
         cardsSpace={90}
-        slides={4.5}
+        slides={4}
       />
       <MediaCarousel
         heading={"Latest Books"}
-        height={"300px"}
-        cardheight={"300px"}
         axiosURL={"/books"}
-        cardsSpace={40}
-        slide={5.5}
+        cardsSpace={10}
+        slide={5}
       />
     </div>
   );
