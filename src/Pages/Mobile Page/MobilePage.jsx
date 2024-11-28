@@ -10,8 +10,8 @@ const MobilePage = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex flex-col h-full items-center text-center mt-2 w-full">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
+        <main className="flex flex-col h-full items-center text-center mt-2 w-full z-50">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight z-50">
             Get <span className="text-purple-500">Alfonso Cahero</span> on{" "}
             <br />
             Your Mobile
@@ -47,19 +47,19 @@ const MobilePage = () => {
             <img
               src={`/Images/bg1.png`}
               alt="bg 1"
-              className="absolute bottom-0 w-full sm:-bottom-72"
+              className="absolute -bottom-28 w-full sm:-bottom-72 -"
             />
             <img
               src={`/Images/bg2.png`}
               alt="bg 2"
-              className="absolute bottom-0 w-full sm:-bottom-72"
+              className="absolute -bottom-28 w-full sm:-bottom-72"
             />
 
             {/* Phones */}
             <img
               src={`/Images/mobile-group.png`}
               alt="Phone 1"
-              className="absolute w-[350px] left-1/2 transform -translate-x-1/2 z-10"
+              className="absolute w-[300px] bottom-0 left-1/2 transform -translate-x-1/2 z-10"
             />
           </div>
         </main>
