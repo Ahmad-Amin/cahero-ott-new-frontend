@@ -16,7 +16,7 @@ const MobilePage = () => {
             <br />
             Your Mobile
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-400 mt-3 sm:mt-4 w-10/12">
+          <p className="text-sm sm:text-base md:text-lg text-gray-400 mt-3 sm:mt-4 w-10/12 z-50">
             Download our app to experience all the features and enjoy seamless
             access anytime, anywhere
           </p>
@@ -25,15 +25,15 @@ const MobilePage = () => {
           <div className="flex flex-wrap gap-3 mt-4 sm:mt-6 z-20">
             <button className="bg-white text-black px-3 sm:px-4 py-2 rounded-lg shadow-lg flex items-center text-sm sm:text-base">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                src={`/Images/apple.png`}
                 alt="Apple"
-                className="w-4 sm:w-5 h-4 sm:h-5 mr-2"
+                className="w-5 sm:w-6 h-5 sm:h-6 mr-2"
               />
               App Store
             </button>
             <button className="bg-white text-black px-3 sm:px-4 py-2 rounded-lg shadow-lg flex items-center text-sm sm:text-base">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/5/58/Google_Play_Store_badge_EN.svg"
+                src={`/Images/playstore.png`}
                 alt="Google Play"
                 className="w-4 sm:w-5 h-4 sm:h-5 mr-2"
               />
